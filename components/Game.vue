@@ -98,6 +98,9 @@ export default {
       &nbsp;
     </div>
     <div id="game">
+      <h3 id="feedback">
+        {{ feedback }}
+      </h3>
       <div id="pangram">
         <h1> {{ pangram }} </h1>
       </div>
@@ -111,9 +114,8 @@ export default {
         </Button>
       </div>
       <h2 class="mt-5">
-        Score: {{ score }} / {{ totalAnswered }}
+        <b>Score</b> {{ score }} / {{ totalAnswered }}
       </h2>
-      <h3>{{ feedback }}</h3>
     </div>
   </main>
 </template>
@@ -152,10 +154,29 @@ main {
 #game{
   padding:2rem;
   display:grid;
+  gap:2rem;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, auto);
   justify-items: center;
   justify-content: center;
   align-self:center;
 }
+#feedback{
+  height:2rem;
+  white-space: pre-line;
+}
+@media only screen and (max-width: 800px) {
+  #game{
+    padding:0.5rem;
+  }
+  #pangram{
+    font-size:2.5rem;
+    padding:1rem;
+    margin:0.5rem;
+  }
+  #answerButtons{
+    grid-auto-flow:row;
+  }
+}
+
 </style>
