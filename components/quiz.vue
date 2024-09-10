@@ -1,5 +1,5 @@
-
 <script lang="js">
+
 import fontNames from "~/assets/fonts.json";
 import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
 const fonts = fontNames["fonts"];
@@ -18,26 +18,27 @@ const fonts = fontNames["fonts"];
 // Answer for 20 seconds see how many you got right
 
 const PANGRAMS = [
-  "Blowzy night-frumps vex'd Jack Q.",
-  "Mr. Jock, TV quiz PhD, bags few lynx.",
+  // "Blowzy night-frumps vex'd Jack Q.",
+  // "Mr. Jock, TV quiz PhD, bags few lynx.",
   "The quick brown fox jumps over the lazy dog.",
-  "Sphinx of black quartz, judge my vow.",
-  "How quickly daft jumping zebras vex!",
-  "The five boxing wizards jump quickly.",
-  "Jackdaws love my big sphinx of quartz.",
-  "Pack my box with five dozen liquor jugs."
+  // "Sphinx of black quartz, judge my vow.",
+  // "How quickly daft jumping zebras vex!",
+  // "The five boxing wizards jump quickly.",
+  // "Jackdaws love my big sphinx of quartz.",
+  // "Pack my box with five dozen liquor jugs."
 ];
 
 const POSITIVE_REINFORCEMENTS = [
   "Nice!",
-  "Splendid!",
-  "Wonderful"
+  // "Splendid!",
+  // "Wonderful"
 ];
 
 const NEGATIVE_REINFORCEMENTS = [
-  "Epic Fail!",
-  "Terrible!",
-  "Fail!",
+  // "Epic Fail!",
+  // "Terrible!",
+  // "Fail!",
+  "Wrong!"
 ];
 
 export default {
@@ -101,18 +102,18 @@ export default {
     >
       &nbsp;
     </div>
-    <div>
+    <div id="questionAndAnswers">
       <div id="pangram">
         <h1> {{ pangram }} </h1>
       </div>
       <div id="answerButtons">
-        <button
+        <Button
           v-for="font in selectedFonts"
           :key="font"
           @click="checkAnswer"
         >
           {{ font }}
-        </button>
+        </Button>
       </div>
       <h2>Score: {{ score }}</h2>
       <h3>{{ feedback }}</h3>
@@ -129,21 +130,29 @@ main {
   width:0;
 }
 #pangram{
-  font-display: block;
   font-size:2rem;
-  color: #0e0e0e
+  border: 2px solid hsl(var(--border));
+  border-radius: var(--radius);
+  width:fit-content;
+  padding:2rem;
+  text-align: center;
+  margin:1rem;
+  justify-self: center;
 }
 
 #answerButtons{
   display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
-  gap:2rem;
+  grid-auto-flow: column;
+  gap: 2rem;
+  justify-content: center;
 }
-button{
-  font-size: 2rem;
-  border:3px solid black;
-  border-radius: 16px;
-  cursor: pointer;
+
+#questionAndAnswers{
+  padding:2rem;
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, auto);
+  justify-items: center;
+  justify-content: center;
 }
 </style>
