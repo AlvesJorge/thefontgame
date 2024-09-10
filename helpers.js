@@ -3,7 +3,7 @@
  * @returns {String}
  */
 export function fontNameToURL(fontName) {
-  return `https://fonts.googleapis.com/css2?family=${fontName}&display=block`;
+  return `https://fonts.googleapis.com/css2?family=${fontName}`;
 }
 
 /**
