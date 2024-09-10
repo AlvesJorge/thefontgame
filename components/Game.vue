@@ -8,7 +8,6 @@ const fonts = fontNames["fonts"];
 // Ways to make things harder
 // remove "sans", "mono" from answers
 //   bear in mind there's fonts named like Sansita
-// give more answers options
 // speedier answers give more points
 // show just one letter
 
@@ -17,17 +16,6 @@ const fonts = fontNames["fonts"];
 // Game Modes:
 // Answer 20 questions see how many you got right
 // Answer for 20 seconds see how many you got right
-
-const PANGRAMS = [
-  // "Blowzy night-frumps vex'd Jack Q.",
-  // "Mr. Jock, TV quiz PhD, bags few lynx.",
-  "The quick brown fox jumps over the lazy dog.",
-  // "Sphinx of black quartz, judge my vow.",
-  // "How quickly daft jumping zebras vex!",
-  // "The five boxing wizards jump quickly.",
-  // "Jackdaws love my big sphinx of quartz.",
-  // "Pack my box with five dozen liquor jugs."
-];
 
 const POSITIVE_REINFORCEMENTS = [
   "Nice!",
@@ -55,7 +43,8 @@ export default {
       feedback: "",
       answerFontName: "",
       answerFontURL: "",
-      score: 0
+      score: 0,
+      totalAnswered: 0
     };
   },
 
@@ -72,6 +61,7 @@ export default {
       } else {
         this.feedback = `${randomValueFromArray(NEGATIVE_REINFORCEMENTS)} \n The answer was: ${this.answerFontName}`;
       }
+      this.totalAnswered += 1;
       this.initNewQuestion();
     },
 
@@ -89,8 +79,9 @@ export default {
       this.pangramElement.style.fontFamily = this.answerFontName;
 
       this.selectedFonts = shuffleArray(randomFonts);
-      this.pangram = randomValueFromArray(PANGRAMS);
+      this.pangram = randomValueFromArray(this.options.exampleTexts);
 
+      await sleep(1000);
       this.feedback = "";
     }
   }
@@ -99,14 +90,14 @@ export default {
 </script>
 
 <template>
-  <main id="font">
+  <main>
     <div
       id="invisibleFontLoader"
       aria-visibility="hidden"
     >
       &nbsp;
     </div>
-    <div id="questionAndAnswers">
+    <div id="game">
       <div id="pangram">
         <h1> {{ pangram }} </h1>
       </div>
@@ -119,7 +110,9 @@ export default {
           {{ font }}
         </Button>
       </div>
-      <h2>Score: {{ score }}</h2>
+      <h2 class="mt-5">
+        Score: {{ score }} / {{ totalAnswered }}
+      </h2>
       <h3>{{ feedback }}</h3>
     </div>
   </main>
@@ -129,12 +122,14 @@ export default {
 main {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 #invisibleFontLoader{
   height:0;
   width:0;
 }
+
 #pangram{
-  font-size:2rem;
+  font-size:3rem;
   border: 2px solid hsl(var(--border));
   border-radius: var(--radius);
   width:fit-content;
@@ -149,14 +144,18 @@ main {
   grid-auto-flow: column;
   gap: 2rem;
   justify-content: center;
+  & button {
+    font-size: 1.3rem;
+  }
 }
 
-#questionAndAnswers{
+#game{
   padding:2rem;
   display:grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, auto);
   justify-items: center;
   justify-content: center;
+  align-self:center;
 }
 </style>

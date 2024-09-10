@@ -13,7 +13,7 @@ export default {
 <template>
   <Sheet>
     <SheetTrigger as-child>
-      <Button variant="outline">
+      <Button variant="ghost">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -33,19 +33,58 @@ export default {
         <SheetDescription>
           Options to make the game more/less fun, it's up to you.
         </SheetDescription>
-        <NumberField
-          id="numberOfAnswerOptionsInput"
-          v-model="options.numberOfAnswerOptions"
-          :min="2"
-        >
-          <Label>Number of answer options</Label>
-          <NumberFieldContent>
-            <NumberFieldDecrement />
-            <NumberFieldInput />
-            <NumberFieldIncrement />
-          </NumberFieldContent>
-        </NumberField>
       </SheetHeader>
+      <NumberField
+        id="numberOfAnswerOptionsInput"
+        v-model="options.numberOfAnswerOptions"
+        :min="2"
+        class="my-4"
+      >
+        <h2>
+          Number of answer options
+          <Button
+            variant="ghost"
+            @click="options.resetNumberOfAnswerOptions"
+          >
+            Reset
+          </Button>
+        </h2>
+        <NumberFieldContent>
+          <NumberFieldDecrement />
+          <NumberFieldInput />
+          <NumberFieldIncrement />
+        </NumberFieldContent>
+      </NumberField>
+
+      <hr class="my-5">
+      <h2>
+        Phrases to showcase the font
+        <Button
+          variant="ghost"
+          @click="options.resetExampleTexts"
+        >
+          Reset
+        </Button>
+      </h2>
+      <TagsInput v-model="options.exampleTexts">
+        <TagsInputItem
+          v-for="item in options.exampleTexts"
+          :key="item"
+          class="tags-input-items"
+          :value="item"
+        >
+          <TagsInputItemText />
+          <TagsInputItemDelete />
+        </TagsInputItem>
+
+        <TagsInputInput placeholder="add more..." />
+      </TagsInput>
     </SheetContent>
   </Sheet>
 </template>
+<style lang="css" scoped>
+ .tags-input-items{
+  border: 2px solid hsl(var(--border));
+  height:fit-content
+}
+</style>

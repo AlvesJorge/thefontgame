@@ -8,11 +8,14 @@ export default {
       numberOfAnswerOptions: 3,
     };
   },
+  beforeMount() {
+    definePageMeta({ colorMode: "dark" });
+  },
   methods: {
     updateNumberOfAnswerOptions(newValue) {
       this.numberOfAnswerOptions = newValue;
     }
-  },
+  }
 };
 
 </script>
@@ -28,12 +31,27 @@ export default {
       crossorigin="true"
     >
     <title> The Font Game </title>
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="white"
+    >
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="black"
+    >
   </Head>
-  <Game
-    :number-of-answer-options="numberOfAnswerOptions"
-  />
-  <OptionsSheet
-    :number-of-answer-options="numberOfAnswerOptions"
-    @update-number-of-answer-options="updateNumberOfAnswerOptions"
-  />
+  <main class="dark">
+    <IndexNav />
+    <Game />
+  </main>
 </template>
+<style scoped>
+main{
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  height: 100%;
+}
+</style>
