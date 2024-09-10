@@ -2,6 +2,7 @@
 
 import fontNames from "~/assets/fonts.json";
 import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
+import { useOptionsStore } from "../helpers/stores/options.js";
 const fonts = fontNames["fonts"];
 
 // Ways to make things harder
@@ -42,15 +43,18 @@ const NEGATIVE_REINFORCEMENTS = [
 ];
 
 export default {
+  props: {
+  },
+
   data() {
     return {
+      options: useOptionsStore(),
       fonts: fonts,
       pangram: "",
       selectedFonts: [],
       feedback: "",
       answerFontName: "",
       answerFontURL: "",
-      numberOfOptions: 3,
       score: 0
     };
   },
@@ -72,7 +76,7 @@ export default {
     },
 
     async initNewQuestion() {
-      const randomFonts = new Array(this.numberOfOptions).fill("").map(() => randomValueFromArray(fonts));
+      const randomFonts = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(fonts));
       this.answerFontName = randomFonts[0];
       this.answerFontURL = fontNameToURL(this.answerFontName);
       importFont(this.answerFontURL);

@@ -7,7 +7,7 @@ export default [
   stylistic.configs["recommended-flat"],
   pluginJs.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
-  { "files": ["**/*.{js,mjs,cjs,vue}"] },
+  { "files": ["**/*.{js,mjs,cjs,vue,ts}"] },
   {
     "plugins": {
       "@stylistic": stylistic,
