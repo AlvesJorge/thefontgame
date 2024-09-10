@@ -87,4 +87,8 @@ export default {
   border: 2px solid hsl(var(--border));
   height:fit-content
 }
+
+button:hover{
+  background-color: unset !important;
+}
 </style>

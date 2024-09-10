@@ -145,7 +145,7 @@ main {
   gap: 2rem;
   justify-content: center;
   & button {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 

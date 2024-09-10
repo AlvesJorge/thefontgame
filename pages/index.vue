@@ -8,9 +8,6 @@ export default {
       numberOfAnswerOptions: 3,
     };
   },
-  beforeMount() {
-    definePageMeta({ colorMode: "dark" });
-  },
   methods: {
     updateNumberOfAnswerOptions(newValue) {
       this.numberOfAnswerOptions = newValue;
@@ -31,18 +28,8 @@ export default {
       crossorigin="true"
     >
     <title> The Font Game </title>
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="white"
-    >
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="black"
-    >
   </Head>
-  <main class="dark">
+  <main>
     <IndexNav />
     <Game />
   </main>
