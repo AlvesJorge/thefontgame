@@ -1,7 +1,12 @@
-# To create the
-# Nuxt 3 Minimal Starter
+### To update fonts
+Run: `npm run updatefonts`
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+
+### This project depends on a few hard coded things:
+If they change the app would break:
+- The existance of this file, and it's structure https://raw.githubusercontent.com/google/fonts/main/tags/all/families.csv
+- Google fonts base url: https://fonts.googleapis.com/css2?family=
+
 
 ## Setup
 
