@@ -1,20 +1,4 @@
 <script lang="js">
-import { useOptionsStore } from "../helpers/stores/options";
-
-export default {
-  data() {
-    return {
-      options: useOptionsStore(),
-      numberOfAnswerOptions: 3,
-    };
-  },
-  methods: {
-    updateNumberOfAnswerOptions(newValue) {
-      this.numberOfAnswerOptions = newValue;
-    }
-  }
-};
-
 </script>
 <template>
   <Head>
