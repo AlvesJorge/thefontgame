@@ -3,6 +3,7 @@
 import fontNames from "~/assets/fonts.json";
 import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
 import { useOptionsStore } from "../helpers/stores/options.js";
+import { toast } from "vue-sonner";
 const fonts = fontNames["fonts"];
 
 // Ways to make things harder
@@ -40,7 +41,6 @@ export default {
       fonts: fonts,
       pangram: "",
       selectedFonts: [],
-      feedback: "",
       answerFontName: "",
       answerFontURL: "",
       score: 0,
@@ -56,10 +56,12 @@ export default {
   methods: {
     async checkAnswer(event) {
       if (event.target.textContent === this.answerFontName) {
-        this.feedback = `${randomValueFromArray(POSITIVE_REINFORCEMENTS)}`;
         this.score += 1;
+        toast.success("Correct!");
       } else {
-        this.feedback = `${randomValueFromArray(NEGATIVE_REINFORCEMENTS)} \n The answer was: ${this.answerFontName}`;
+        toast.error("Wrong!", {
+          description: `The answer was ${this.answerFontName}`
+        });
       }
       this.totalAnswered += 1;
       this.initNewQuestion();
@@ -80,9 +82,6 @@ export default {
 
       this.selectedFonts = shuffleArray(randomFonts);
       this.pangram = randomValueFromArray(this.options.exampleTexts);
-
-      await sleep(1000);
-      this.feedback = "";
     }
   }
 };
@@ -98,9 +97,6 @@ export default {
       &nbsp;
     </div>
     <div id="game">
-      <h3 id="feedback">
-        {{ feedback }}
-      </h3>
       <div id="pangram">
         <h1> {{ pangram }} </h1>
       </div>
@@ -117,6 +113,10 @@ export default {
         <b>Score</b> {{ score }} / {{ totalAnswered }}
       </h2>
     </div>
+    <Toaster
+      rich-colors
+      position="top-center"
+    />
   </main>
 </template>
 
@@ -160,10 +160,6 @@ main {
   justify-items: center;
   justify-content: center;
   align-self:center;
-}
-#feedback{
-  height:2rem;
-  white-space: pre-line;
 }
 @media only screen and (max-width: 800px) {
   #game{
