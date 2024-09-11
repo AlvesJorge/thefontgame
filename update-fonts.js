@@ -8,14 +8,17 @@ const rows = responseText.split("\n");
 // remove header row
 rows.shift();
 
-// there are repeated family names
 const fonts = rows.map((column) => column.split(",")[0])
-  .filter((font) => !font.startsWith("Noto Sans")
-  && !font.startsWith("Playwrite")
-  && !font.startsWith("IBM Plex Sans")
-  && !font.startsWith("Libre Barcode")
-  && !font.startsWith("Noto Serif")
-  && font.length > 0);
+  .filter((font) =>
+    !font.startsWith("Noto Sans") // many repeats
+    && !font.startsWith("Playwrite") // many repeats
+    && !font.startsWith("IBM Plex Sans") // many repeats
+    && !font.startsWith("Libre Barcode") // many semi repeats
+    && !font.startsWith("Noto Serif") // many repeats
+    && !font.startsWith("Ponnala") // unsure why but this one does not exist on google fonts
+    && font.length > 0); // there's an empty one in there
+
+// add one of each of the repeats
 fonts.push("Noto Sans", "Noto Serif", "IBM Plex Sans", "Playwrite US Modern", "Libre Barcode 39 Text");
 
 fs.writeFileSync("assets/fonts.json", JSON.stringify({ "fonts": Array.from(new Set(fonts).values()) }));
