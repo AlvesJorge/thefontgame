@@ -1,9 +1,10 @@
 <script lang="js">
 
 import fontNames from "~/assets/fonts.json";
-import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
+import { shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
 import { useOptionsStore } from "../helpers/stores/options.js";
 import { toast } from "vue-sonner";
+import Typed from "typed.js";
 const fonts = fontNames["fonts"];
 
 // Ways to make things harder
@@ -63,12 +64,22 @@ export default {
       // One way I found for the font to be loaded is by applying it to an element first
       document.querySelector("#invisibleFontLoader").style.fontFamily = this.answerFontName;
       // Then we still need to delay, this might be different with different connection speeds
-      await sleep(500);
 
       this.fontShowcaseElement.style.fontFamily = this.answerFontName;
 
       this.selectedFonts = shuffleArray(randomFonts);
       this.fontShowcase = randomValueFromArray(this.options.exampleTexts);
+      if (this.options.typingEffect) {
+        // Destroy it so there's no chance there are two typewriter effects
+        // happening at the same time
+        this.typewriterObject?.destroy();
+        this.typewriterObject = new Typed("#fontShowcase", {
+          strings: [this.fontShowcase],
+          typeSpeed: 30,
+          showCursor: false,
+
+        });
+      }
     }
   }
 };
@@ -85,18 +96,20 @@ export default {
     </div>
     <div id="game">
       <div id="fontShowcase">
-        <h1> {{ fontShowcase }} </h1>
+        <h1 v-if="()=> !options.typingEffect">
+          {{ fontShowcase }}
+        </h1>
       </div>
       <div id="answerButtons">
-        <Button
+        <JCButton
           v-for="font in selectedFonts"
           :key="font"
           @click="checkAnswer"
         >
           {{ font }}
-        </Button>
+        </JCButton>
       </div>
-      <h2 class="mt-5">
+      <h2 id="score">
         <b>Score</b> {{ score }} / {{ totalAnswered }}
       </h2>
     </div>
@@ -117,15 +130,28 @@ main {
   width:0;
 }
 
+#score{
+  margin-top:1rem
+}
+
 #fontShowcase{
   font-size:3rem;
-  border: 2px solid hsl(var(--border));
   border-radius: var(--radius);
+  background-color: hsl(var(--muted));
+  max-width: 95%;
+  min-width:400px;
+  min-height:14rem;
   width:fit-content;
   padding:2rem;
   text-align: center;
   margin:1rem;
   justify-self: center;
+  align-content:center
+}
+
+.light #fontShowcase{
+  box-shadow:0 0 12px #989898;
+  border: 2px solid hsl(var(--primary));
 }
 
 #answerButtons{
@@ -156,6 +182,8 @@ main {
     font-size:2.5rem;
     padding:1rem;
     margin:0.5rem;
+    min-height:22rem;
+    width:95%;
   }
   #answerButtons{
     grid-auto-flow:row;

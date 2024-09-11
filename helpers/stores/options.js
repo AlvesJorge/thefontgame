@@ -10,7 +10,8 @@ const EXAMPLE_TEXTS = [
 export const useOptionsStore = defineStore("options", {
   state: () => ({
     numberOfAnswerOptions: 3,
-    exampleTexts: EXAMPLE_TEXTS
+    exampleTexts: EXAMPLE_TEXTS,
+    typingEffect: true
   }),
   actions: {
     resetExampleTexts() {
@@ -18,7 +19,13 @@ export const useOptionsStore = defineStore("options", {
     },
     resetNumberOfAnswerOptions() {
       this.$state.numberOfAnswerOptions = 3;
-    }
+    },
+    toggleTypingEffect() {
+      console.log(this.$state.typingEffect);
+      this.$state.typingEffect = this.$state.typingEffect ? false : true;
+      console.log(this.$state.typingEffect);
+      return this.$state.typingEffect;
+    },
   }
 
 });

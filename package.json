@@ -23,6 +23,7 @@
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "typed.js": "^2.1.0",
     "vue": "3.4",
     "vue-sonner": "^1.1.5"
   },
