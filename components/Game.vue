@@ -78,7 +78,6 @@ export default {
           strings: [this.fontShowcase],
           typeSpeed: 30,
           showCursor: false,
-
         });
       }
     }
@@ -182,12 +181,14 @@ main {
   #fontShowcase{
     font-size:2.5rem;
     padding:1rem;
-    margin:0.5rem;
-    min-height:22rem;
+    margin:2rem 0.5rem 0.5rem 0.5rem;
+    min-height:16rem;
     width:95%;
+    min-width:unset;
   }
   #answerButtons{
     grid-auto-flow:row;
+    gap:1rem
   }
 }
 
