@@ -11,6 +11,7 @@
       href="https://fonts.gstatic.com"
       crossorigin="true"
     >
+
     <title> The Font Game </title>
   </Head>
   <main>
@@ -31,7 +32,7 @@ main{
   height: 100%;
 }
 #mainHeader{
-  font-size:2rem;
+  font-size:5rem;
   font-weight: 800;
   height:min-content;
   text-align: center;

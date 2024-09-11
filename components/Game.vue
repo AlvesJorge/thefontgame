@@ -53,6 +53,7 @@ export default {
     async checkAnswer(event) {
       if (event.target.textContent === this.answerFontName) {
         this.score += 1;
+        // this is what is causing them to sometimes stay green or red
         event.target.parentElement.classList.add("correct");
       } else {
         document.querySelector(`#${this.answerFontName.replaceAll(" ", "_")}`).classList.add("correct");
@@ -134,14 +135,16 @@ main {
   width:0;
 }
 
+#score{
+  font-size:2rem;
+}
+
 #fontShowcase{
   font-size:3rem;
   border-radius: var(--radius);
-  background-color: hsl(var(--muted));
-  max-width: 95%;
-  min-width:400px;
+  background-color: hsl(var(--card));
+  width:90%;
   min-height:14rem;
-  width:fit-content;
   padding:2rem;
   text-align: center;
   margin:1rem;
@@ -156,7 +159,8 @@ main {
 
 #answerButtons{
   display:grid;
-  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  grid-auto-flow: row;
   gap: 2rem;
   padding-top:0.5rem;
   justify-content: center;
@@ -165,13 +169,12 @@ main {
   }
 }
 
-
 #game{
   padding:2rem;
   display:grid;
-  gap:1rem;
+  gap:3rem;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
   justify-items: center;
   justify-content: center;
   align-self:center;

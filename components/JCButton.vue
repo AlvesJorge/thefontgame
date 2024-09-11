@@ -43,13 +43,7 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 12px;
-    background: linear-gradient(
-        to left,
-        hsl(var(--primary) / 0.4) 0%,
-        hsl(var(--primary) / 0.6) 8%,
-        hsl(var(--primary) / 0.6) 92%,
-        hsl(var(--primary) / 0.4) 100%
-    );
+
   }
   .front {
     display: block;
@@ -61,7 +55,7 @@ export default {
     background: hsl(var(--primary));
     will-change: transform;
     transform: translateY(-4px);
-    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+    transition: all 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
   }
   .pushable:hover {
     filter: brightness(110%);
@@ -88,31 +82,14 @@ export default {
   .correct{
     & .front{
     background: hsl(var(--green));
+    color: white;
     }
-    & .edge{
 
-    background: linear-gradient(
-        to left,
-        hsl(var(--green) / 0.4) 0%,
-        hsl(var(--green) / 0.6) 8%,
-        hsl(var(--green) / 0.6) 92%,
-        hsl(var(--green) / 0.4) 100%
-    );
-    }
   }
   .wrong{
     & .front{
     background: hsl(var(--red));
-    }
-    & .edge{
-
-    background: linear-gradient(
-        to left,
-        hsl(var(--red) / 0.4) 0%,
-        hsl(var(--red) / 0.6) 8%,
-        hsl(var(--red) / 0.6) 92%,
-        hsl(var(--red) / 0.4) 100%
-    );
+    color: white;
     }
   }
 </style>
