@@ -18,19 +18,6 @@ const fonts = fontNames["fonts"];
 // Answer 20 questions see how many you got right
 // Answer for 20 seconds see how many you got right
 
-const POSITIVE_REINFORCEMENTS = [
-  "Nice!",
-  // "Splendid!",
-  // "Wonderful"
-];
-
-const NEGATIVE_REINFORCEMENTS = [
-  // "Epic Fail!",
-  // "Terrible!",
-  // "Fail!",
-  "Wrong!"
-];
-
 export default {
   props: {
   },
@@ -39,7 +26,7 @@ export default {
     return {
       options: useOptionsStore(),
       fonts: fonts,
-      pangram: "",
+      fontShowcase: "",
       selectedFonts: [],
       answerFontName: "",
       answerFontURL: "",
@@ -49,7 +36,7 @@ export default {
   },
 
   mounted() {
-    this.pangramElement = document.querySelector("#pangram");
+    this.fontShowcaseElement = document.querySelector("#fontShowcase");
     this.initNewQuestion();
   },
 
@@ -78,10 +65,10 @@ export default {
       // Then we still need to delay, this might be different with different connection speeds
       await sleep(500);
 
-      this.pangramElement.style.fontFamily = this.answerFontName;
+      this.fontShowcaseElement.style.fontFamily = this.answerFontName;
 
       this.selectedFonts = shuffleArray(randomFonts);
-      this.pangram = randomValueFromArray(this.options.exampleTexts);
+      this.fontShowcase = randomValueFromArray(this.options.exampleTexts);
     }
   }
 };
@@ -97,8 +84,8 @@ export default {
       &nbsp;
     </div>
     <div id="game">
-      <div id="pangram">
-        <h1> {{ pangram }} </h1>
+      <div id="fontShowcase">
+        <h1> {{ fontShowcase }} </h1>
       </div>
       <div id="answerButtons">
         <Button
@@ -130,7 +117,7 @@ main {
   width:0;
 }
 
-#pangram{
+#fontShowcase{
   font-size:3rem;
   border: 2px solid hsl(var(--border));
   border-radius: var(--radius);
@@ -165,7 +152,7 @@ main {
   #game{
     padding:0.5rem;
   }
-  #pangram{
+  #fontShowcase{
     font-size:2.5rem;
     padding:1rem;
     margin:0.5rem;
