@@ -164,6 +164,7 @@ main {
   gap: 2rem;
   padding-top:0.5rem;
   justify-content: center;
+  align-items: center;
   & button {
     font-size: 1.2rem;
   }
@@ -183,6 +184,10 @@ main {
 @media only screen and (max-width: 800px) {
   #game{
     padding:0.5rem;
+    gap:0.5rem;
+  }
+  #score{
+    font-size:1.5rem;
   }
   #fontShowcase{
     font-size:2.5rem;
@@ -190,8 +195,10 @@ main {
     min-height:16rem;
     width:95%;
     min-width:unset;
+    margin:0.5rem;
   }
   #answerButtons{
+    grid-template-columns: 1fr;
     grid-auto-flow:row;
     gap:1rem
   }

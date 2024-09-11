@@ -38,5 +38,12 @@ main{
   text-align: center;
   display: grid;
   place-items: center;
+  margin-top:2rem;
+}
+@media only screen and (max-width: 800px) {
+  #mainHeader{
+    font-size:3rem;
+    margin-top:0;
+  }
 }
 </style>

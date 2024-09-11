@@ -23,6 +23,7 @@ export default {
     cursor: pointer;
     outline-offset: 4px;
     transition: filter 250ms;
+    height:fit-content;
   }
   .shadow {
     position: absolute;
