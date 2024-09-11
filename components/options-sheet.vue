@@ -19,8 +19,8 @@ export default {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="20"
+          height="20"
           fill="currentColor"
           viewBox="0 0 16 16"
           style="display: inline-block; align-self:center; margin-right:0.5rem;"
@@ -108,5 +108,6 @@ export default {
   grid-auto-flow: row;
   grid-auto-rows: min-content;
   gap: 2rem;
+  overflow: auto;
 }
 </style>

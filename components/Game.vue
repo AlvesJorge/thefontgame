@@ -56,9 +56,7 @@ export default {
         this.score += 1;
         toast.success("Correct!");
       } else {
-        toast.error("Wrong!", {
-          description: `The answer was ${this.answerFontName}`
-        });
+        toast.error(`Wrong! The answer was ${this.answerFontName}`);
       }
       this.totalAnswered += 1;
       this.initNewQuestion();
@@ -125,6 +123,7 @@ export default {
     <Toaster
       rich-colors
       position="top-center"
+      style="top:2.5rem"
     />
   </main>
 </template>
