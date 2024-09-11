@@ -32,7 +32,6 @@ export default {
       answerFontURL: "",
       score: 0,
       totalAnswered: 0,
-      feedback: ""
     };
   },
 
@@ -54,9 +53,10 @@ export default {
     async checkAnswer(event) {
       if (event.target.textContent === this.answerFontName) {
         this.score += 1;
-        this.feedback = "✅ Correct!";
+        event.target.parentElement.classList.add("correct");
       } else {
-        this.feedback = `❌ Wrong! The answer was ${this.answerFontName}`;
+        document.querySelector(`#${this.answerFontName.replaceAll(" ", "_")}`).classList.add("correct");
+        event.target.parentElement.classList.add("wrong");
       }
       this.totalAnswered += 1;
       this.initNewQuestion();
@@ -72,8 +72,7 @@ export default {
       document.querySelector("#invisibleFontLoader").style.fontFamily = this.answerFontName;
       // Then we still need to delay, this might be different with different connection speeds
 
-      await sleep(500);
-      this.feedback = "";
+      await sleep(1000);
       this.fontShowcaseElement.style.fontFamily = this.answerFontName;
 
       this.selectedFonts = shuffleArray(randomFonts);
@@ -111,12 +110,10 @@ export default {
           {{ fontShowcase }}
         </h1>
       </div>
-      <div id="feedback">
-        {{ feedback }}
-      </div>
       <div id="answerButtons">
         <JCButton
           v-for="font in selectedFonts"
+          :id="font.replaceAll(' ','_')"
           :key="font"
           @click="checkAnswer"
         >
@@ -168,9 +165,6 @@ main {
   }
 }
 
-#feedback{
-  height:1.5rem;
-}
 
 #game{
   padding:2rem;

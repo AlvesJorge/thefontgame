@@ -85,4 +85,34 @@ export default {
   .pushable:focus:not(:focus-visible) {
     outline: none;
   }
+  .correct{
+    & .front{
+    background: hsl(var(--green));
+    }
+    & .edge{
+
+    background: linear-gradient(
+        to left,
+        hsl(var(--green) / 0.4) 0%,
+        hsl(var(--green) / 0.6) 8%,
+        hsl(var(--green) / 0.6) 92%,
+        hsl(var(--green) / 0.4) 100%
+    );
+    }
+  }
+  .wrong{
+    & .front{
+    background: hsl(var(--red));
+    }
+    & .edge{
+
+    background: linear-gradient(
+        to left,
+        hsl(var(--red) / 0.4) 0%,
+        hsl(var(--red) / 0.6) 8%,
+        hsl(var(--red) / 0.6) 92%,
+        hsl(var(--red) / 0.4) 100%
+    );
+    }
+  }
 </style>
