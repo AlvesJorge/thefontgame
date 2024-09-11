@@ -137,10 +137,6 @@ main {
   width:0;
 }
 
-#score{
-  margin-top:1rem
-}
-
 #fontShowcase{
   font-size:3rem;
   border-radius: var(--radius);
