@@ -1,7 +1,7 @@
 <script lang="js">
 
 import fontNames from "~/assets/fonts.json";
-import { shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
+import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
 import { useOptionsStore } from "../helpers/stores/options.js";
 import { toast } from "vue-sonner";
 import Typed from "typed.js";
@@ -65,6 +65,7 @@ export default {
       document.querySelector("#invisibleFontLoader").style.fontFamily = this.answerFontName;
       // Then we still need to delay, this might be different with different connection speeds
 
+      await sleep(500);
       this.fontShowcaseElement.style.fontFamily = this.answerFontName;
 
       this.selectedFonts = shuffleArray(randomFonts);
