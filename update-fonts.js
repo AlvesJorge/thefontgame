@@ -16,9 +16,11 @@ const fonts = rows.map((column) => column.split(",")[0])
     && !font.startsWith("Libre Barcode") // many semi repeats
     && !font.startsWith("Noto Serif") // many repeats
     && !font.startsWith("Ponnala") // unsure why but this one does not exist on google fonts
+    && !font.startsWith("Tuffy") // unsure why but this one does not exist on google fonts
+    && !font.startsWith("Baloo") // many repeats
     && font.length > 0); // there's an empty one in there
 
 // add one of each of the repeats
-fonts.push("Noto Sans", "Noto Serif", "IBM Plex Sans", "Playwrite US Modern", "Libre Barcode 39 Text");
+fonts.push("Noto Sans", "Noto Serif", "IBM Plex Sans", "Playwrite US Modern", "Libre Barcode 39 Text", "Baloo 2");
 
 fs.writeFileSync("assets/fonts.json", JSON.stringify({ "fonts": Array.from(new Set(fonts).values()) }));
