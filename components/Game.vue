@@ -36,6 +36,15 @@ export default {
     };
   },
 
+  watch: {
+    options: {
+      handler() {
+        this.initNewQuestion();
+      },
+      deep: true
+    }
+  },
+
   mounted() {
     this.fontShowcaseElement = document.querySelector("#fontShowcase");
     this.initNewQuestion();
@@ -146,7 +155,7 @@ main {
   text-align: center;
   margin:1rem;
   justify-self: center;
-  align-content:center
+  align-content:center;
 }
 
 .light #fontShowcase{
