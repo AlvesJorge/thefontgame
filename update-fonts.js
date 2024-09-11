@@ -9,7 +9,13 @@ const rows = responseText.split("\n");
 rows.shift();
 
 // there are repeated family names
-const fonts = new Set();
-rows.forEach((column) => fonts.add(column.split(",")[0]));
+const fonts = rows.map((column) => column.split(",")[0])
+  .filter((font) => !font.startsWith("Noto Sans")
+  && !font.startsWith("Playwrite")
+  && !font.startsWith("IBM Plex Sans")
+  && !font.startsWith("Libre Barcode")
+  && !font.startsWith("Noto Serif")
+  && font.length > 0);
+fonts.push("Noto Sans", "Noto Serif", "IBM Plex Sans", "Playwrite US Modern", "Libre Barcode 39 Text");
 
-fs.writeFileSync("assets/fonts.json", JSON.stringify({ "fonts": Array.from(fonts.values()) }));
+fs.writeFileSync("assets/fonts.json", JSON.stringify({ "fonts": Array.from(new Set(fonts).values()) }));
