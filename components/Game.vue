@@ -3,7 +3,6 @@
 import fontNames from "~/assets/fonts.json";
 import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
 import { useOptionsStore } from "../helpers/stores/options.js";
-import { toast } from "vue-sonner";
 import Typed from "typed.js";
 const fonts = fontNames["fonts"];
 
@@ -32,7 +31,8 @@ export default {
       answerFontName: "",
       answerFontURL: "",
       score: 0,
-      totalAnswered: 0
+      totalAnswered: 0,
+      feedback: ""
     };
   },
 
@@ -54,9 +54,9 @@ export default {
     async checkAnswer(event) {
       if (event.target.textContent === this.answerFontName) {
         this.score += 1;
-        toast.success("Correct!");
+        this.feedback = "✅ Correct!";
       } else {
-        toast.error(`Wrong! The answer was ${this.answerFontName}`);
+        this.feedback = `❌ Wrong! The answer was ${this.answerFontName}`;
       }
       this.totalAnswered += 1;
       this.initNewQuestion();
@@ -73,6 +73,7 @@ export default {
       // Then we still need to delay, this might be different with different connection speeds
 
       await sleep(500);
+      this.feedback = "";
       this.fontShowcaseElement.style.fontFamily = this.answerFontName;
 
       this.selectedFonts = shuffleArray(randomFonts);
@@ -102,10 +103,16 @@ export default {
       &nbsp;
     </div>
     <div id="game">
+      <h2 id="score">
+        <b>Score</b> {{ score }} / {{ totalAnswered }}
+      </h2>
       <div id="fontShowcase">
         <h1 v-if="()=> !options.typingEffect">
           {{ fontShowcase }}
         </h1>
+      </div>
+      <div id="feedback">
+        {{ feedback }}
       </div>
       <div id="answerButtons">
         <JCButton
@@ -116,15 +123,7 @@ export default {
           {{ font }}
         </JCButton>
       </div>
-      <h2 id="score">
-        <b>Score</b> {{ score }} / {{ totalAnswered }}
-      </h2>
     </div>
-    <Toaster
-      rich-colors
-      position="top-center"
-      style="top:2.5rem"
-    />
   </main>
 </template>
 
@@ -166,22 +165,28 @@ main {
   display:grid;
   grid-auto-flow: column;
   gap: 2rem;
+  padding-top:0.5rem;
   justify-content: center;
   & button {
     font-size: 1.2rem;
   }
 }
 
+#feedback{
+  height:1.5rem;
+}
+
 #game{
   padding:2rem;
   display:grid;
-  gap:2rem;
+  gap:1rem;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
   justify-items: center;
   justify-content: center;
   align-self:center;
 }
+
 @media only screen and (max-width: 800px) {
   #game{
     padding:0.5rem;
@@ -189,7 +194,6 @@ main {
   #fontShowcase{
     font-size:2.5rem;
     padding:1rem;
-    margin:2rem 0.5rem 0.5rem 0.5rem;
     min-height:16rem;
     width:95%;
     min-width:unset;

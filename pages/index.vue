@@ -31,6 +31,11 @@ export default {
   </Head>
   <main>
     <IndexNav />
+    <div id="mainHeader">
+      <h1>
+        The Font Game
+      </h1>
+    </div>
     <Game />
   </main>
 </template>
@@ -38,7 +43,15 @@ export default {
 main{
   display:grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: min-content min-content 1fr;
   height: 100%;
+}
+#mainHeader{
+  font-size:2rem;
+  font-weight: 800;
+  height:min-content;
+  text-align: center;
+  display: grid;
+  place-items: center;
 }
 </style>
