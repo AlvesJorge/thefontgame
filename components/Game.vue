@@ -3,6 +3,7 @@
 import fontNames from "~/assets/fonts.json";
 import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
 import { useOptionsStore } from "../helpers/stores/options.js";
+import { useFontHistoryStore } from "../helpers/stores/fontHistory.js";
 import Typed from "typed.js";
 const fonts = fontNames["fonts"];
 
@@ -25,6 +26,7 @@ export default {
   data() {
     return {
       options: useOptionsStore(),
+      fontHistory: useFontHistoryStore(),
       fonts: fonts,
       fontShowcase: "",
       selectedFonts: [],
@@ -88,6 +90,7 @@ export default {
           showCursor: false,
         });
       }
+      this.fontHistory.addToHistory(this.answerFontName, this.answerFontURL);
     }
   }
 };
@@ -176,6 +179,7 @@ export default {
   justify-items: center;
   justify-content: center;
   align-self:center;
+  height: 100%;
 }
 
 @media only screen and (max-width: 800px) {

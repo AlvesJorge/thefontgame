@@ -15,7 +15,7 @@
     <title> The Font Game </title>
   </Head>
   <main class="dotted-background">
-    <IndexNav />
+    <MainNav />
     <div id="mainHeader">
       <h1>
         The Font Game

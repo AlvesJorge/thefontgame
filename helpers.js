@@ -1,4 +1,5 @@
 /**
+ * Returns URL of the importable CSS stylesheet
  * @param {String} fontName
  * @returns {String}
  */
@@ -18,6 +19,15 @@ export function importFont(fontURL) {
 }
 
 /**
+ * Returns URL of the font showcase in google fonts
+ * @param {String} fontName
+ * @returns {String}
+ */
+export function fontNameToSpecimenURL(fontName) {
+  return `https://fonts.google.com/specimen/${fontName}`;
+}
+
+/**
  * @param {Array} array
  * @returns
  */
@@ -26,8 +36,8 @@ export function randomValueFromArray(array) {
 }
 
 /**
- *
  * @param {Array} array
+ * @returns {Array}
  */
 export function shuffleArray(array) {
   let j, x, i;
