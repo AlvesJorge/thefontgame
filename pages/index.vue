@@ -14,7 +14,7 @@
 
     <title> The Font Game </title>
   </Head>
-  <main>
+  <main class="dotted-background">
     <IndexNav />
     <div id="mainHeader">
       <h1>
@@ -25,6 +25,9 @@
   </main>
 </template>
 <style scoped>
+main {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 main{
   display:grid;
   grid-template-columns: 1fr;
@@ -40,9 +43,15 @@ main{
   place-items: center;
   margin-top:2rem;
 }
+
+.light .dotted-background{
+  background-image: radial-gradient(#d0d0d0, 1px, #eeeeee 0);
+  background-size: 30px 30px;
+}
+
 @media only screen and (max-width: 800px) {
   #mainHeader{
-    font-size:3rem;
+    font-size:0rem;
     margin-top:0;
   }
 }

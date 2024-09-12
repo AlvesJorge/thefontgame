@@ -51,7 +51,7 @@ export default {
     position: relative;
     padding: 12px 42px;
     border-radius: 12px;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: hsl(var(--primary-foreground));
     background: hsl(var(--primary));
     will-change: transform;

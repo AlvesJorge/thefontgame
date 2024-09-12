@@ -126,9 +126,6 @@ export default {
 </template>
 
 <style lang="css" scoped>
-main {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
 #invisibleFontLoader{
   height:0;
@@ -166,7 +163,7 @@ main {
   justify-content: center;
   align-items: center;
   & button {
-    font-size: 1.2rem;
+    font-size: 8rem;
   }
 }
 
@@ -183,7 +180,7 @@ main {
 
 @media only screen and (max-width: 800px) {
   #game{
-    padding:0.5rem;
+    padding:0 0.5rem;
     gap:0.5rem;
   }
   #score{
