@@ -16,11 +16,6 @@
   </Head>
   <main class="dotted-background">
     <MainNav />
-    <div id="mainHeader">
-      <h1>
-        The Font Game
-      </h1>
-    </div>
     <Game />
   </main>
 </template>
@@ -34,25 +29,10 @@ main{
   grid-template-rows: min-content min-content 1fr;
   height: 100%;
 }
-#mainHeader{
-  font-size:5rem;
-  font-weight: 800;
-  height:min-content;
-  text-align: center;
-  display: grid;
-  place-items: center;
-  margin-top:2rem;
-}
 
 .light .dotted-background{
   background-image: radial-gradient(#d0d0d0, 1px, #eeeeee 0);
   background-size: 30px 30px;
 }
 
-@media only screen and (max-width: 800px) {
-  #mainHeader{
-    font-size:0rem;
-    margin-top:0;
-  }
-}
 </style>

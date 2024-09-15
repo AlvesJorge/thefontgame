@@ -4,7 +4,6 @@ export default class TimedGame extends BaseGame {
     this.time = time;
     this.timer = 0;
     this.started = false;
-    this.finished = false;
     this.name = "timed";
     this.finishedCallback = finishedCallback;
   }
@@ -15,18 +14,18 @@ export default class TimedGame extends BaseGame {
   }
 
   startTimer() {
-    const clock = setInterval(() => {
+    this.clock = setInterval(() => {
       this.timer += 1;
     }, 1000);
     setTimeout(() => {
-      this.finished = true;
-      this.finishedCallback();
-      this.timer = this.time;
-      clearInterval(clock);
+      this.finished();
     }, this.time);
   }
 
-  finished() {
-    return this.totalAnswered === this.totalToAnswer;
+  finished(interrupted = false) {
+    clearInterval(this.clock);
+    this.timer = this.time;
+    this.started = false;
+    if (!interrupted) this.finishedCallback.call();
   }
 }

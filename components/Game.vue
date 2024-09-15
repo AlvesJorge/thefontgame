@@ -19,21 +19,52 @@ import { ref, watch, useTemplateRef } from "vue";
 // timed: 30 seconds how many can you get right. show score / total / time
 // count: 30 fonts, show score / 30
 
+const GAMES_NAME_ENUM = {
+  finite: FiniteGame,
+  infinite: BaseGame,
+  timed: TimedGame
+};
+
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
-const game = ref(new TimedGame(options, 10000000, timedGameFinishedCallback));
-onNuxtReady(() => {
-  game.value.start();
-});
+const gameMode = ref("infinite");
+const game = ref(new BaseGame(options));
+// onNuxtReady(() => {
+//   game.value.start();
+// });
 let typewriterObject = {};
+
+watch(options, () => newRound(500), { deep: true });
 
 function timedGameFinishedCallback() {
   alert(`finished! you got ${game.value.score} correct in ${game.value.time / 1000} seconds`);
-  game.value = new TimedGame(options, 10000);
+  game.value = new TimedGame(options, 30000, timedGameFinishedCallback);
 }
 
-watch(options, () => newRound(500), { deep: true });
+function updateGameMode(newGameModeName) {
+  if (gameMode.value == "timed") {
+    game.value.finished(true);
+  }
+  if (newGameModeName == "timed") {
+    game.value = new TimedGame(options, 30000, timedGameFinishedCallback);
+    fontShowcase.value.clearText();
+  }
+  if (newGameModeName == "finite") {
+    game.value = new FiniteGame(options, 30);
+    newRound(500);
+  }
+  if (newGameModeName == "infinite") {
+    game.value = new BaseGame(options);
+    newRound(500);
+  }
+  gameMode.value = newGameModeName;
+}
+
+async function startTimerGame() {
+  await newRound(1500);
+  game.value.start();
+}
 
 async function checkAnswer(event) {
   let delay = 1500;
@@ -67,6 +98,7 @@ async function newRound(delay = 1500) {
     writeWithTypewriter();
   }
   fontHistory.value.addToHistory(game.value.answer.fontName, game.value.answer.stylesheetURL);
+  return Promise.resolve();
 }
 
 function writeWithTypewriter() {
@@ -85,6 +117,21 @@ function writeWithTypewriter() {
 <template>
   <main>
     <div id="game">
+      <ToggleGroup
+        type="single"
+        :model-value="gameMode"
+        @update:model-value="updateGameMode"
+      >
+        <ToggleGroupItem value="infinite">
+          Infinite
+        </ToggleGroupItem>
+        <ToggleGroupItem value="finite">
+          Fonts
+        </ToggleGroupItem>
+        <ToggleGroupItem value="timed">
+          Timed
+        </ToggleGroupItem>
+      </ToggleGroup>
       <h2
         v-if="game.name === 'infinite'"
         id="score"
@@ -95,13 +142,15 @@ function writeWithTypewriter() {
         v-if="game.name === 'finite'"
         id="score"
       >
-        <b>Answered</b> {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
+        {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
       </h2>
       <h2
         v-if="game.name === 'timed'"
         id="score"
       >
-        <b>Answered </b> {{ game.ui.score }} correctly <br>
+        <span v-if="game.started"><b>Answered </b> {{ game.ui.score }} correctly</span>
+        <span v-else>Press start to begin the timer</span>
+        <br>
         <div id="timer">
           <span> {{ game.timer }} / {{ game.time / 1000 }}</span>
           <svg
@@ -118,6 +167,12 @@ function writeWithTypewriter() {
               clip-rule="evenodd"
             />
           </svg>
+          <Button
+            v-if="() => !game.started"
+            @click="startTimerGame"
+          >
+            Start
+          </Button>
         </div>
       </h2>
       <div
@@ -190,7 +245,7 @@ function writeWithTypewriter() {
 #game {
   padding: 2rem;
   display: grid;
-  gap: 3rem;
+  gap: 2rem;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, auto);
   justify-items: center;
