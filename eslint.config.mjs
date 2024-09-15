@@ -1,9 +1,10 @@
+import withNuxt from "./.nuxt/eslint.config.mjs";
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginVue from "eslint-plugin-vue";
 import stylistic from "@stylistic/eslint-plugin";
 
-export default [
+export default withNuxt([
   stylistic.configs["recommended-flat"],
   pluginJs.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
@@ -26,5 +27,5 @@ export default [
       "function-call-argument-newline": ["error", "never"],
       "vue/require-default-prop": "off",
     },
-  },
-];
+  }, // Your custom configs here
+]);
