@@ -37,7 +37,7 @@ export class BaseGameMode {
     this.ui.selectedFonts = this.selectedFonts;
   }
 
-  getRandomFonts() {
+  newRound() {
     const randomFonts = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(this.fonts));
     this.answer = new Answer(randomFonts[0]);
     this.selectedFonts = shuffleArray(randomFonts);

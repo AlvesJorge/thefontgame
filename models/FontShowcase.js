@@ -9,6 +9,16 @@ export class FontShowcase {
     this.texts = texts;
   }
 
+  async newRound(game, answer, delay) {
+    this.preloadFont(answer.fontName);
+    await sleep(delay);
+    this.clearText();
+    game.value.updateUI();
+    this.updateFontStyle(answer.fontName);
+    this.updateText();
+    return Promise.resolve();
+  }
+
   createInvisibleElement() {
     const div = document.createElement("div");
     div.innerHTML = " <div id='invisibleFontLoader' aria-visibility='hidden' style='height:0; width:0' > &nbsp; </div> ";
