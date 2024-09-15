@@ -94,7 +94,7 @@ export default {
             /></svg>
           </a>
         </Button>
-        <OptionsSheet />
+        <Options />
       </div>
     </div>
   </nav>

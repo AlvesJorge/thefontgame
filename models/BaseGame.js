@@ -9,7 +9,7 @@ export class Answer {
     this.stylesheetURL = fontNameToURL(fontName);
   }
 }
-export class BaseGameMode {
+export class BaseGame {
   constructor(options) {
     this.fonts = fontNames["fonts"];
     this.options = options;
@@ -17,10 +17,7 @@ export class BaseGameMode {
     this.score = 0;
     this.ui = {};
     this.updateUI();
-  }
-
-  initNewQuestion() {
-
+    this.name = "infinite";
   }
 
   increaseTotalAnswered() {
@@ -29,6 +26,10 @@ export class BaseGameMode {
 
   increaseScore() {
     this.score += 1;
+  }
+
+  finished() {
+    return false;
   }
 
   updateUI() {

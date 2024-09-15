@@ -22,48 +22,68 @@ import { ref, watch, useTemplateRef } from "vue";
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
-const game = ref(new BaseGameMode(options));
+const game = ref(new FiniteGame(options, 3));
 let typewriterObject = {};
 
-watch(options, () => initNewQuestion(500), { deep: true });
+watch(options, () => newRound(500), { deep: true });
 
 async function checkAnswer(event) {
-  if (event.target.textContent === game.value.answer.fontName) {
+  const buttonElement = event.target;
+  const buttonElementWrapper = buttonElement.parentElement;
+  if (buttonElement.textContent === game.value.answer.fontName) {
     game.value.increaseScore();
     // this is what is causing them to sometimes stay green or red
-    event.target.parentElement.classList.add("correct");
+    buttonElementWrapper.classList.add("correct");
   } else {
     document.querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`).classList.add("correct");
-    event.target.parentElement.classList.add("wrong");
+    buttonElementWrapper.classList.add("wrong");
   }
   game.value.increaseTotalAnswered();
-  initNewQuestion();
+  if (game.value.finished()) {
+    alert(`finished! you got ${game.value.score} out of ${game.value.totalToAnswer}`);
+    game.value = new FiniteGame(options, 3);
+  }
+  newRound();
 }
 
-async function initNewQuestion(delay = 1500) {
+async function newRound(delay = 1500) {
   game.value.newRound();
   importFont(game.value.answer.stylesheetURL);
   await fontShowcase.value.newRound(game, game.value.answer, delay);
 
   if (options.value.typingEffect) {
-    // Destroy it so there's no chance there are two typewriter effects
-    // happening at the same time
-    if (typewriterObject instanceof Typed) typewriterObject?.destroy();
-    typewriterObject = new Typed("#fontShowcase", {
-      strings: [fontShowcase.value.text],
-      typeSpeed: 30,
-      showCursor: false,
-    });
+    writeWithTypewriter();
   }
   fontHistory.value.addToHistory(game.value.answer.fontName, game.value.answer.stylesheetURL);
 }
+
+function writeWithTypewriter() {
+  // Destroy it so there's no chance there are two typewriter effects
+  // happening at the same time
+  if (typewriterObject instanceof Typed) typewriterObject?.destroy();
+  typewriterObject = new Typed("#fontShowcase", {
+    strings: [fontShowcase.value.text],
+    typeSpeed: 30,
+    showCursor: false,
+  });
+}
+
 </script>
 
 <template>
   <main>
     <div id="game">
-      <h2 id="score">
+      <h2
+        v-if="game.name === 'infinite'"
+        id="score"
+      >
         <b>Score</b> {{ game.ui.score }} / {{ game.ui.totalAnswered }}
+      </h2>
+      <h2
+        v-if="game.name === 'finite'"
+        id="score"
+      >
+        <b>Answered</b> {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
       </h2>
       <div
         id="fontShowcase"
