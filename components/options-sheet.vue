@@ -1,5 +1,4 @@
 <script lang="js">
-import { useOptionsStore } from "../helpers/stores/options";
 
 export default {
   data() {

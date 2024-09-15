@@ -8,7 +8,6 @@ import {
 
 import { h } from "vue";
 import { cn } from "@/lib/utils";
-import { useFontHistoryStore } from "../helpers/stores/fontHistory";
 import { importFont } from "../helpers/helpers";
 
 const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";

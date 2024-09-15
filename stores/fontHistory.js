@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
-import { fontNameToExternalShowcaseURL } from "../helpers";
+import { fontNameToExternalShowcaseURL } from "../helpers/helpers";
 
 export const useFontHistoryStore = defineStore("fontHistory", {
   state: () => ({

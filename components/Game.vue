@@ -1,11 +1,10 @@
-<script lang="js">
+<script setup>
 
-import fontNames from "~/assets/fonts.json";
-import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers/helpers.js";
-import { useOptionsStore } from "../helpers/stores/options.js";
-import { useFontHistoryStore } from "../helpers/stores/fontHistory.js";
+import { importFont, sleep } from "../helpers/helpers.js";
 import Typed from "typed.js";
-const fonts = fontNames["fonts"];
+import { BaseGameMode } from "../helpers/game-modes/BaseGameMode.js";
+import { FontShowcase } from "../helpers/FontShowcase.js";
+import { ref, watch, onMounted, useTemplateRef, onBeforeMount } from "vue";
 
 // Ways to make things harder
 // remove "sans", "mono" from answers
@@ -19,104 +18,78 @@ const fonts = fontNames["fonts"];
 // Answer 20 questions see how many you got right
 // Answer for 20 seconds see how many you got right
 
-export default {
-  props: {
-  },
+// modes:
+// infinite: keep going forever and show score / total
+// timed: 30 seconds how many can you get right. show score / total / time
+// count: 30 fonts, show score / 30
 
-  data() {
-    return {
-      options: useOptionsStore(),
-      fontHistory: useFontHistoryStore(),
-      fonts: fonts,
-      fontShowcase: "",
-      selectedFonts: [],
-      answerFontName: "",
-      answerFontURL: "",
-      score: 0,
-      totalAnswered: 0,
-    };
-  },
+const options = ref(useOptionsStore());
+const fontHistory = ref(useFontHistoryStore());
+const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
+const game = ref(new BaseGameMode(options));
+let typewriterObject = { destroy: () => {} };
 
-  watch: {
-    options: {
-      handler() {
-        this.initNewQuestion();
-      },
-      deep: true
-    }
-  },
+watch(options, () => initNewQuestion(), { deep: true });
+onBeforeMount(() => {
+  initNewQuestion(500);
+});
 
-  mounted() {
-    this.fontShowcaseElement = document.querySelector("#fontShowcase");
-    this.initNewQuestion();
-  },
-
-  methods: {
-    async checkAnswer(event) {
-      if (event.target.textContent === this.answerFontName) {
-        this.score += 1;
-        // this is what is causing them to sometimes stay green or red
-        event.target.parentElement.classList.add("correct");
-      } else {
-        document.querySelector(`#${this.answerFontName.replaceAll(" ", "_")}`).classList.add("correct");
-        event.target.parentElement.classList.add("wrong");
-      }
-      this.totalAnswered += 1;
-      this.initNewQuestion();
-    },
-
-    async initNewQuestion() {
-      const randomFonts = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(fonts));
-      this.answerFontName = randomFonts[0];
-      this.answerFontURL = fontNameToURL(this.answerFontName);
-      importFont(this.answerFontURL);
-
-      // One way I found for the font to be loaded is by applying it to an element first
-      document.querySelector("#invisibleFontLoader").style.fontFamily = this.answerFontName;
-      // Then we still need to delay, this might be different with different connection speeds
-
-      await sleep(1000);
-      this.fontShowcaseElement.style.fontFamily = this.answerFontName;
-
-      this.selectedFonts = shuffleArray(randomFonts);
-      this.fontShowcase = randomValueFromArray(this.options.exampleTexts);
-      if (this.options.typingEffect) {
-        // Destroy it so there's no chance there are two typewriter effects
-        // happening at the same time
-        this.typewriterObject?.destroy();
-        this.typewriterObject = new Typed("#fontShowcase", {
-          strings: [this.fontShowcase],
-          typeSpeed: 30,
-          showCursor: false,
-        });
-      }
-      this.fontHistory.addToHistory(this.answerFontName, this.answerFontURL);
-    }
+async function checkAnswer(event) {
+  if (event.target.textContent === game.value.answer.fontName) {
+    game.value.increaseScore();
+    // this is what is causing them to sometimes stay green or red
+    event.target.parentElement.classList.add("correct");
+  } else {
+    document.querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`).classList.add("correct");
+    event.target.parentElement.classList.add("wrong");
   }
-};
+  game.value.increaseTotalAnswered();
+  initNewQuestion();
+}
 
+async function initNewQuestion(sleepTime = 1500) {
+  game.value.getRandomFonts();
+
+  importFont(game.value.answer.stylesheetURL);
+  fontShowcase.value.preloadFont(game.value.answer.fontName);
+
+  await sleep(sleepTime);
+  fontShowcase.value.clearText();
+  game.value.updateUI();
+  fontShowcase.value.updateFontStyle(game.value.answer.fontName);
+  fontShowcase.value.updateText();
+
+  if (options.value.typingEffect) {
+    // Destroy it so there's no chance there are two typewriter effects
+    // happening at the same time
+    if (typewriterObject instanceof Typed) typewriterObject?.destroy();
+    typewriterObject = new Typed("#fontShowcase", {
+      strings: [fontShowcase.value.text],
+      typeSpeed: 30,
+      showCursor: false,
+    });
+  }
+  fontHistory.value.addToHistory(game.value.answer.fontName, game.value.answer.stylesheetURL);
+}
 </script>
 
 <template>
   <main>
-    <div
-      id="invisibleFontLoader"
-      aria-visibility="hidden"
-    >
-      &nbsp;
-    </div>
     <div id="game">
       <h2 id="score">
-        <b>Score</b> {{ score }} / {{ totalAnswered }}
+        <b>Score</b> {{ game.ui.score }} / {{ game.ui.totalAnswered }}
       </h2>
-      <div id="fontShowcase">
+      <div
+        id="fontShowcase"
+        ref="fontShowcaseElement"
+      >
         <h1 v-if="()=> !options.typingEffect">
-          {{ fontShowcase }}
+          {{ fontShowcase.text }}
         </h1>
       </div>
       <div id="answerButtons">
         <JCButton
-          v-for="font in selectedFonts"
+          v-for="font in game.ui.selectedFonts"
           :id="font.replaceAll(' ','_')"
           :key="font"
           @click="checkAnswer"
@@ -129,11 +102,6 @@ export default {
 </template>
 
 <style lang="css" scoped>
-
-#invisibleFontLoader{
-  height:0;
-  width:0;
-}
 
 #score{
   font-size:2rem;
