@@ -22,12 +22,21 @@ import { ref, watch, useTemplateRef } from "vue";
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
-const game = ref(new FiniteGame(options, 3));
+const game = ref(new TimedGame(options, 10000000, timedGameFinishedCallback));
+onNuxtReady(() => {
+  game.value.start();
+});
 let typewriterObject = {};
+
+function timedGameFinishedCallback() {
+  alert(`finished! you got ${game.value.score} correct in ${game.value.time / 1000} seconds`);
+  game.value = new TimedGame(options, 10000);
+}
 
 watch(options, () => newRound(500), { deep: true });
 
 async function checkAnswer(event) {
+  let delay = 1500;
   const buttonElement = event.target;
   const buttonElementWrapper = buttonElement.parentElement;
   if (buttonElement.textContent === game.value.answer.fontName) {
@@ -39,11 +48,14 @@ async function checkAnswer(event) {
     buttonElementWrapper.classList.add("wrong");
   }
   game.value.increaseTotalAnswered();
-  if (game.value.finished()) {
+  if (game.value.name === "finite" && game.value.finished()) {
     alert(`finished! you got ${game.value.score} out of ${game.value.totalToAnswer}`);
     game.value = new FiniteGame(options, 3);
   }
-  newRound();
+  if (game.value.name === "timed") {
+    delay = 750;
+  }
+  newRound(delay);
 }
 
 async function newRound(delay = 1500) {
@@ -84,6 +96,29 @@ function writeWithTypewriter() {
         id="score"
       >
         <b>Answered</b> {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
+      </h2>
+      <h2
+        v-if="game.name === 'timed'"
+        id="score"
+      >
+        <b>Answered </b> {{ game.ui.score }} correctly <br>
+        <div id="timer">
+          <span> {{ game.timer }} / {{ game.time / 1000 }}</span>
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.49998 0.5C5.49998 0.223858 5.72383 0 5.99998 0H7.49998H8.99998C9.27612 0 9.49998 0.223858 9.49998 0.5C9.49998 0.776142 9.27612 1 8.99998 1H7.99998V2.11922C9.09832 2.20409 10.119 2.56622 10.992 3.13572C11.0116 3.10851 11.0336 3.08252 11.058 3.05806L11.858 2.25806C12.1021 2.01398 12.4978 2.01398 12.7419 2.25806C12.986 2.50214 12.986 2.89786 12.7419 3.14194L11.967 3.91682C13.1595 5.07925 13.9 6.70314 13.9 8.49998C13.9 12.0346 11.0346 14.9 7.49998 14.9C3.96535 14.9 1.09998 12.0346 1.09998 8.49998C1.09998 5.13362 3.69904 2.3743 6.99998 2.11922V1H5.99998C5.72383 1 5.49998 0.776142 5.49998 0.5ZM2.09998 8.49998C2.09998 5.51764 4.51764 3.09998 7.49998 3.09998C10.4823 3.09998 12.9 5.51764 12.9 8.49998C12.9 11.4823 10.4823 13.9 7.49998 13.9C4.51764 13.9 2.09998 11.4823 2.09998 8.49998ZM7.99998 4.5C7.99998 4.22386 7.77612 4 7.49998 4C7.22383 4 6.99998 4.22386 6.99998 4.5V9.5C6.99998 9.77614 7.22383 10 7.49998 10C7.77612 10 7.99998 9.77614 7.99998 9.5V4.5Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
       </h2>
       <div
         id="fontShowcase"
@@ -128,6 +163,14 @@ function writeWithTypewriter() {
 .light #fontShowcase {
   box-shadow: 0 0 12px #989898;
   border: 2px solid hsl(var(--primary));
+}
+
+#timer {
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  place-items: center;
+  gap: 0.5rem;
 }
 
 #answerButtons {
