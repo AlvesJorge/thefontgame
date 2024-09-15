@@ -23,7 +23,7 @@ export function importFont(fontURL) {
  * @param {String} fontName
  * @returns {String}
  */
-export function fontNameToSpecimenURL(fontName) {
+export function fontNameToExternalShowcaseURL(fontName) {
   return `https://fonts.google.com/specimen/${fontName}`;
 }
 

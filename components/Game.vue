@@ -1,7 +1,7 @@
 <script lang="js">
 
 import fontNames from "~/assets/fonts.json";
-import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers.js";
+import { sleep, shuffleArray, fontNameToURL, randomValueFromArray, importFont } from "../helpers/helpers.js";
 import { useOptionsStore } from "../helpers/stores/options.js";
 import { useFontHistoryStore } from "../helpers/stores/fontHistory.js";
 import Typed from "typed.js";

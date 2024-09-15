@@ -1,0 +1,151 @@
+<script lang="js">
+import {
+  FlexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useVueTable,
+} from "@tanstack/vue-table";
+
+import { h } from "vue";
+import { cn } from "@/lib/utils";
+import { useFontHistoryStore } from "../helpers/stores/fontHistory";
+import { importFont } from "../helpers/helpers";
+
+const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";
+
+export default {
+  components: {
+    FlexRender,
+  },
+  data() {
+    return {
+      cn: cn,
+      fontHistory: useFontHistoryStore()
+    };
+  },
+  beforeMount() {
+    // const columnHelper = createColumnHelper();
+
+    this.fontHistory.history.forEach((font) => importFont(font["stylesheetURL"]));
+    console.log(this.fontHistory.history);
+
+    this.columns = [
+      {
+        accessorKey: "name",
+        header: () => h("div", { class: "text-left" }, "Name"),
+        cell: ({ row }) => {
+          return h("a", { href: row.original["externalShowcaseURL"], class: "text-left font-medium" }, row.getValue("name"));
+        },
+      },
+      {
+        accessorKey: "Demo",
+        header: () => h("div", { class: "text-left" }, "Demo"),
+        cell: ({ row }) => {
+          return h("h3", { style: `font-family: ${row.getValue("name")}`, class: "text-left font-medium" }, DEMO_TEXT);
+        },
+      },
+    ];
+    this.table = useVueTable({
+      data: this.fontHistory.history.toReversed(),
+      columns: this.columns,
+      getCoreRowModel: getCoreRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+    });
+  }
+};
+</script>
+
+<template>
+  <div class="w-full">
+    <div class="rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow
+            v-for="headerGroup in table.getHeaderGroups()"
+            :key="headerGroup.id"
+          >
+            <TableHead
+              v-for="header in headerGroup.headers"
+              :key="header.id"
+              :data-pinned="header.column.getIsPinned()"
+              :class="cn(
+                { 'sticky bg-background/95': header.column.getIsPinned() },
+                header.column.getIsPinned() === 'left' ? 'left-0' : 'right-0',
+              )"
+            >
+              <FlexRender
+                v-if="!header.isPlaceholder"
+                :render="header.column.columnDef.header"
+                :props="header.getContext()"
+              />
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <template v-if="table.getRowModel().rows?.length">
+            <template
+              v-for="row in table.getRowModel().rows"
+              :key="row.id"
+            >
+              <TableRow :data-state="row.getIsSelected() && 'selected'">
+                <TableCell
+                  v-for="cell in row.getVisibleCells()"
+                  :key="cell.id"
+                  :data-pinned="cell.column.getIsPinned()"
+                  :class="cn(
+                    { 'sticky bg-background/95': cell.column.getIsPinned() },
+                    cell.column.getIsPinned() === 'left' ? 'left-0' : 'right-0',
+                  )"
+                >
+                  <FlexRender
+                    :render="cell.column.columnDef.cell"
+                    :props="cell.getContext()"
+                  />
+                </TableCell>
+              </TableRow>
+              <TableRow v-if="row.getIsExpanded()">
+                <TableCell :colspan="row.getAllCells().length">
+                  {{ JSON.stringify(row.original) }}
+                </TableCell>
+              </TableRow>
+            </template>
+          </template>
+
+          <TableRow v-else>
+            <TableCell
+              :colspan="columns.length"
+              class="h-24 text-center"
+            >
+              No results.
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+
+    <div class="flex items-center justify-end space-x-2 py-4">
+      <div class="flex-1 text-sm text-muted-foreground">
+        {{ table.getRowModel().rows?.length }} of
+        {{ fontHistory.history.length }}.
+      </div>
+      <div class="space-x-2">
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="!table.getCanPreviousPage()"
+          @click="table.previousPage()"
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="!table.getCanNextPage()"
+          @click="table.nextPage()"
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  </div>
+</template>

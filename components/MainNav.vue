@@ -18,10 +18,10 @@ export default {
   <nav>
     <div id="navigationMenuList">
       <div id="navHeader">
-        <h1>The Font Game</h1>
+        <a href="/"><h1>The Font Game</h1></a>
       </div>
       <div id="navHeaderSmaller">
-        <h1>TFG</h1>
+        <a href="/"><h1>TFG</h1></a>
       </div>
       <div id="navButtons">
         <Button
@@ -112,7 +112,12 @@ button:hover{
 }
 
 #navHeader{
-  display:none;
+  display:block;
+  align-self:center;
+  justify-self:start;
+  margin-left:1rem;
+  font-weight: 800;
+  font-size: 1.3rem;
 }
 
 #navHeaderSmaller{
@@ -127,20 +132,9 @@ button:hover{
   #navigationMenuList{
     padding: 0 0.2rem;
   }
-  #navHeader{
-  display:block;
-  align-self:center;
-  justify-self:start;
-  margin-left:1rem;
-  font-weight: 800;
-  font-size: 1.3rem;
-  }
 }
 
 @media only screen and (max-width: 400px) {
-  #navHeader{
-  display:none;
-  }
   #navHeaderSmaller{
   display:block;
   align-self:center;

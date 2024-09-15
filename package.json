@@ -14,6 +14,7 @@
   "dependencies": {
     "@nuxtjs/color-mode": "^3.4.4",
     "@pinia/nuxt": "^0.5.4",
+    "@tanstack/vue-table": "^8.20.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.439.0",
