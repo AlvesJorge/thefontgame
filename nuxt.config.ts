@@ -9,9 +9,6 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxt/eslint",
   ],
-  imports: {
-    dirs: ["stores"],
-  },
   colorMode: {
     classSuffix: "",
     preference: "dark"
