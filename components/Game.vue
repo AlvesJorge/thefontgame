@@ -2,33 +2,15 @@
 import Typed from "typed.js";
 import { ref, watch, useTemplateRef } from "vue";
 
-// Ways to make things harder
-// remove "sans", "mono" from answers
-//   bear in mind there's fonts named like Sansita
-// speedier answers give more points
-// show just one letter
-
-// maybe have a bookmark feature for cool fonts
-
-// Game Modes:
-// Answer 20 questions see how many you got right
-// Answer for 20 seconds see how many you got right
-
-// modes:
-// infinite: keep going forever and show score / total
-// timed: 30 seconds how many can you get right. show score / total / time
-// count: 30 fonts, show score / 30
-
-const GAMES_NAME_ENUM = {
-  finite: FiniteGame,
-  infinite: BaseGame,
-  timed: TimedGame
-};
+const TIMED_DEFAULT_TIME = 10000;
+const ROUNDS_DEFAULT_ROUNDS = 10;
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
 const gameMode = ref("infinite");
+const showGameReview = ref(false);
+const gameReviewDescription = ref("");
 const game = ref(new BaseGame(options));
 // onNuxtReady(() => {
 //   game.value.start();
@@ -38,20 +20,22 @@ let typewriterObject = {};
 watch(options, () => newRound(500), { deep: true });
 
 function timedGameFinishedCallback() {
-  alert(`finished! you got ${game.value.score} correct in ${game.value.time / 1000} seconds`);
-  game.value = new TimedGame(options, 30000, timedGameFinishedCallback);
+  gameReviewDescription.value = `you got ${game.value.score}`;
+  showGameReview.value = true;
+  game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
 }
 
 function updateGameMode(newGameModeName) {
   if (gameMode.value == "timed") {
     game.value.finished(true);
   }
+
   if (newGameModeName == "timed") {
-    game.value = new TimedGame(options, 30000, timedGameFinishedCallback);
+    game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
     fontShowcase.value.clearText();
   }
   if (newGameModeName == "finite") {
-    game.value = new FiniteGame(options, 30);
+    game.value = new FiniteGame(options, ROUNDS_DEFAULT_ROUNDS);
     newRound(500);
   }
   if (newGameModeName == "infinite") {
@@ -80,8 +64,9 @@ async function checkAnswer(event) {
   }
   game.value.increaseTotalAnswered();
   if (game.value.name === "finite" && game.value.finished()) {
-    alert(`finished! you got ${game.value.score} out of ${game.value.totalToAnswer}`);
-    game.value = new FiniteGame(options, 3);
+    showGameReview.value = true;
+    gameReviewDescription.value = `You got ${game.value.score} out of ${game.value.totalToAnswer}`;
+    game.value = new FiniteGame(options, 10);
   }
   if (game.value.name === "timed") {
     delay = 750;
@@ -118,15 +103,16 @@ function writeWithTypewriter() {
   <main>
     <div id="game">
       <ToggleGroup
+        id="gameModeToggleGroup"
         type="single"
         :model-value="gameMode"
         @update:model-value="updateGameMode"
       >
         <ToggleGroupItem value="infinite">
-          Infinite
+          Zen
         </ToggleGroupItem>
         <ToggleGroupItem value="finite">
-          Fonts
+          Rounds
         </ToggleGroupItem>
         <ToggleGroupItem value="timed">
           Timed
@@ -195,12 +181,24 @@ function writeWithTypewriter() {
       </div>
     </div>
   </main>
+
+  <Dialog v-model:open="showGameReview">
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Finished!</DialogTitle>
+        <DialogDescription>
+          {{ gameReviewDescription }}
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style lang="css" scoped>
 #score {
   font-size: 2rem;
 }
+
 
 #fontShowcase {
   font-size: 3rem;
