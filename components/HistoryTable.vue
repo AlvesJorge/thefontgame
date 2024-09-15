@@ -8,8 +8,6 @@ import {
 
 import { h } from "vue";
 import { cn } from "@/lib/utils";
-import { importFont } from "../helpers/helpers";
-
 const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";
 
 export default {

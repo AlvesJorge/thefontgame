@@ -1,9 +1,6 @@
 <script setup>
 
-import { importFont, sleep } from "../helpers/helpers.js";
 import Typed from "typed.js";
-import { BaseGameMode } from "../helpers/game-modes/BaseGameMode.js";
-import { FontShowcase } from "../helpers/FontShowcase.js";
 import { ref, watch, onMounted, useTemplateRef, onBeforeMount } from "vue";
 
 // Ways to make things harder

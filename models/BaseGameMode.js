@@ -1,6 +1,4 @@
 import fontNames from "~/assets/fonts.json";
-import { fontNameToURL, shuffleArray, randomValueFromArray } from "../helpers";
-
 export class Answer {
   /**
    * @param {String} fontName

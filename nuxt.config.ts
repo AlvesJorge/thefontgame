@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxt/eslint",
   ],
+  imports: {
+    dirs: ["helpers", "models"],
+  },
   colorMode: {
     classSuffix: "",
     preference: "dark"

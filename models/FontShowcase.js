@@ -1,4 +1,4 @@
-import { randomValueFromArray, sleep } from "./helpers";
+import { randomValueFromArray, sleep } from "../helpers/helpers";
 export class FontShowcase {
   /**
      * @param {HTMLElement} element
