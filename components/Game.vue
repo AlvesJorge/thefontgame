@@ -21,12 +21,7 @@ import { ref, watch, useTemplateRef } from "vue";
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
-const fontShowcase = ref(
-  new FontShowcase(
-    useTemplateRef("fontShowcaseElement"),
-    options.value.exampleTexts
-  )
-);
+const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
 const game = ref(new BaseGameMode(options));
 let typewriterObject = {};
 
@@ -38,9 +33,7 @@ async function checkAnswer(event) {
     // this is what is causing them to sometimes stay green or red
     event.target.parentElement.classList.add("correct");
   } else {
-    document
-      .querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`)
-      .classList.add("correct");
+    document.querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`).classList.add("correct");
     event.target.parentElement.classList.add("wrong");
   }
   game.value.increaseTotalAnswered();
@@ -62,10 +55,7 @@ async function initNewQuestion(delay = 1500) {
       showCursor: false,
     });
   }
-  fontHistory.value.addToHistory(
-    game.value.answer.fontName,
-    game.value.answer.stylesheetURL
-  );
+  fontHistory.value.addToHistory(game.value.answer.fontName, game.value.answer.stylesheetURL);
 }
 </script>
 
@@ -75,7 +65,10 @@ async function initNewQuestion(delay = 1500) {
       <h2 id="score">
         <b>Score</b> {{ game.ui.score }} / {{ game.ui.totalAnswered }}
       </h2>
-      <div id="fontShowcase" ref="fontShowcaseElement">
+      <div
+        id="fontShowcase"
+        ref="fontShowcaseElement"
+      >
         <h1 v-if="() => !options.typingEffect">
           {{ fontShowcase.text }}
         </h1>
