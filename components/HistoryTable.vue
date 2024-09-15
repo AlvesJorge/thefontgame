@@ -24,24 +24,20 @@ export default {
     };
   },
   beforeMount() {
-    // const columnHelper = createColumnHelper();
-
     this.fontHistory.history.forEach((font) => importFont(font["stylesheetURL"]));
-    console.log(this.fontHistory.history);
-
     this.columns = [
       {
         accessorKey: "name",
-        header: () => h("div", { class: "text-left" }, "Name"),
+        header: () => h("div", "Name"),
         cell: ({ row }) => {
-          return h("a", { href: row.original["externalShowcaseURL"], class: "text-left font-medium" }, row.getValue("name"));
+          return h("a", { href: row.original["externalShowcaseURL"], class: "font-medium" }, row.getValue("name"));
         },
       },
       {
-        accessorKey: "Demo",
-        header: () => h("div", { class: "text-left" }, "Demo"),
+        accessorKey: "demo",
+        header: () => h("div", "Demo"),
         cell: ({ row }) => {
-          return h("h3", { style: `font-family: ${row.getValue("name")}`, class: "text-left font-medium" }, DEMO_TEXT);
+          return h("h3", { style: `font-family: ${row.getValue("name")}`, class: "font-medium" }, DEMO_TEXT);
         },
       },
     ];
@@ -67,11 +63,6 @@ export default {
             <TableHead
               v-for="header in headerGroup.headers"
               :key="header.id"
-              :data-pinned="header.column.getIsPinned()"
-              :class="cn(
-                { 'sticky bg-background/95': header.column.getIsPinned() },
-                header.column.getIsPinned() === 'left' ? 'left-0' : 'right-0',
-              )"
             >
               <FlexRender
                 v-if="!header.isPlaceholder"
@@ -87,25 +78,15 @@ export default {
               v-for="row in table.getRowModel().rows"
               :key="row.id"
             >
-              <TableRow :data-state="row.getIsSelected() && 'selected'">
+              <TableRow>
                 <TableCell
                   v-for="cell in row.getVisibleCells()"
                   :key="cell.id"
-                  :data-pinned="cell.column.getIsPinned()"
-                  :class="cn(
-                    { 'sticky bg-background/95': cell.column.getIsPinned() },
-                    cell.column.getIsPinned() === 'left' ? 'left-0' : 'right-0',
-                  )"
                 >
                   <FlexRender
                     :render="cell.column.columnDef.cell"
                     :props="cell.getContext()"
                   />
-                </TableCell>
-              </TableRow>
-              <TableRow v-if="row.getIsExpanded()">
-                <TableCell :colspan="row.getAllCells().length">
-                  {{ JSON.stringify(row.original) }}
                 </TableCell>
               </TableRow>
             </template>
@@ -149,3 +130,8 @@ export default {
     </div>
   </div>
 </template>
+<style scoped>
+a {
+ color: hsl(var(--primary));
+}
+</style>
