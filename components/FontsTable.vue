@@ -6,19 +6,18 @@ import {
   useVueTable,
 } from "@tanstack/vue-table";
 
+const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";
+
 const props = defineProps({
   fonts: Array
 });
-
-console.log(props.fonts);
-const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";
 
 const columns = ref([
   {
     accessorKey: "name",
     header: () => h("div", "Name"),
     cell: ({ row }) => {
-      return h("a", { href: row.original["externalShowcaseURL"], class: "font-medium" }, row.getValue("name"));
+      return h("a", { href: row.original["externalShowcaseURL"], target: "_blank", class: "font-medium" }, row.getValue("name"));
     },
   },
   {
@@ -102,7 +101,10 @@ onBeforeMount(() => {
         {{ table.getRowModel().rows?.length }} of
         {{ props.fonts.length }}.
       </div>
-      <div class="space-x-2" v-if="table.getRowModel().rows?.length < props.fonts.length">
+      <div
+        v-if="table.getRowModel().rows?.length < props.fonts.length"
+        class="space-x-2"
+      >
         <Button
           variant="outline"
           size="sm"

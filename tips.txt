@@ -1,0 +1,7 @@
+Font Suffixes / Prefixes:
+Serif Font - a font with the the small line or stroke attached at the end of letters
+Sans Serif OR just Sans - a font without the small line or stroke attached at the end of letters
+One - No idea, found one person asking this question here https://graphicdesign.stackexchange.com/questions/30143/what-does-one-mean-in-the-name-of-various-fonts
+but nothing else, reached out to a handful of font designers, some characteristics I see in most of them are: Thick strokes, small spaces between letters, if serif very small ends,
+Mono - all letters use the exact same size on the screen
+

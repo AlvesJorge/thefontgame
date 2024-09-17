@@ -56,7 +56,10 @@ function toggleColorMode() {
           </svg>
           <span class="sr-only">Toggle theme</span>
         </Button>
-        <a href="https://github.com/AlvesJorge/thefontgame">
+        <a
+          href="https://github.com/AlvesJorge/thefontgame"
+          target="_blank"
+        >
           <Button variant="ghost">
             <svg
               width="20"
