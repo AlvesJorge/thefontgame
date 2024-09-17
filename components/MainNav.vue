@@ -1,27 +1,23 @@
-<script lang="js">
+<script setup>
+const colorMode = useColorMode();
 
-export default {
-  data() {
-    return {
-      colorMode: useColorMode(), // not defined because its loaded as a module
-    };
-  },
-  methods: {
-    toggleColorMode() {
-      this.colorMode.preference = this.colorMode.preference == "dark" ? "light" : "dark";
-    }
-  }
-};
+function toggleColorMode() {
+  colorMode.preference = colorMode.preference == "dark" ? "light" : "dark";
+}
 </script>
 
 <template>
   <nav>
     <div id="navigationMenuList">
       <div id="navHeader">
-        <a href="/"><h1>The Font Game</h1></a>
+        <NuxtLink href="/">
+          <h1>The Font Game</h1>
+        </NuxtLink>
       </div>
       <div id="navHeaderSmaller">
-        <a href="/"><h1>TFG</h1></a>
+        <NuxtLink href="/">
+          <h1>TFG</h1>
+        </NuxtLink>
       </div>
       <div id="navButtons">
         <Button
@@ -79,7 +75,7 @@ export default {
           </Button>
         </a>
         <Button variant="ghost">
-          <a href="/history">
+          <NuxtLink href="/history">
             <svg
               width="20"
               height="20"
@@ -94,59 +90,62 @@ export default {
                 clip-rule="evenodd"
               />
             </svg>
-          </a>
+          </NuxtLink>
         </Button>
         <Options />
       </div>
     </div>
   </nav>
 </template>
+
 <style scoped>
-#navigationMenuList{
-  width:100%;
-  display:grid;
+#navigationMenuList {
+  width: 100%;
+  display: grid;
   grid-auto-flow: column;
   align-content: center;
-  padding:0.4rem 0.2rem;
+  padding: 0.4rem 0.2rem;
 }
-button:hover{
+
+button:hover {
   background-color: unset !important;
 }
 
-#navHeader{
-  display:block;
-  align-self:center;
-  justify-self:start;
-  margin-left:1rem;
+#navHeader {
+  display: block;
+  align-self: center;
+  justify-self: start;
+  margin-left: 1rem;
   font-weight: 800;
   font-size: 1.3rem;
 }
 
-#navHeaderSmaller{
-  display:none;
+#navHeaderSmaller {
+  display: none;
 }
 
-#navButtons{
-  justify-self:end;
+#navButtons {
+  justify-self: end;
 }
 
 @media only screen and (max-width: 800px) {
-  #navigationMenuList{
+  #navigationMenuList {
     padding: 0 0.2rem;
   }
 }
 
 @media only screen and (max-width: 400px) {
-  #navHeader{
-    display:none
+  #navHeader {
+    display: none
   }
-  #navHeaderSmaller{
-  display:block;
-  align-self:center;
-  justify-self:start;
-  margin-left:1rem;
-  font-weight: 800;
-  font-size: 1.3rem;
+
+  #navHeaderSmaller {
+    display: block;
+    align-self: center;
+    justify-self: start;
+    margin-left: 1rem;
+    font-weight: 800;
+    font-size: 1.3rem;
   }
 }
 </style>
