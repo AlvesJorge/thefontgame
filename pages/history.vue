@@ -2,8 +2,9 @@
   <div>
     <MainNav />
     <main id="main">
-      <HistoryTable
-        id="historyTable"
+      <FontsTable
+        id="fontsTable"
+        :fonts="useFontHistoryStore().history.toReversed()"
       />
     </main>
   </div>
@@ -14,7 +15,7 @@
   place-content:center;
   height:90%;
 }
-#historyTable{
+#fontsTable{
   max-width:1000px;
   min-width:500px;
 }

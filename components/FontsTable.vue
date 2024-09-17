@@ -6,7 +6,11 @@ import {
   useVueTable,
 } from "@tanstack/vue-table";
 
-const fontHistory = useFontHistoryStore();
+const props = defineProps({
+  fonts: Array
+});
+
+console.log(props.fonts);
 const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";
 
 const columns = ref([
@@ -28,7 +32,7 @@ const columns = ref([
 
 const table = ref(
   useVueTable({
-    data: fontHistory.history.toReversed(),
+    data: props.fonts,
     columns: columns.value,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -36,7 +40,7 @@ const table = ref(
 );
 
 onBeforeMount(() => {
-  fontHistory.history.forEach((font) => importFont(font["stylesheetURL"]));
+  props.fonts.forEach((font) => importFont(font["stylesheetURL"]));
 });
 </script>
 
@@ -96,7 +100,7 @@ onBeforeMount(() => {
     <div class="flex items-center justify-end space-x-2 py-4">
       <div class="flex-1 text-sm text-muted-foreground">
         {{ table.getRowModel().rows?.length }} of
-        {{ fontHistory.history.length }}.
+        {{ props.fonts.length }}.
       </div>
       <div class="space-x-2">
         <Button
