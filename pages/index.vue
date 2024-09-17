@@ -1,23 +1,25 @@
 <script lang="js">
 </script>
 <template>
-  <Head>
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    >
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin="true"
-    >
+  <div>
+    <Head>
+      <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+      >
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin="true"
+      >
 
-    <title> The Font Game </title>
-  </Head>
-  <main class="dotted-background">
-    <MainNav />
-    <Game />
-  </main>
+      <title> The Font Game </title>
+    </Head>
+    <main class="dotted-background">
+      <MainNav />
+      <Game />
+    </main>
+  </div>
 </template>
 <style scoped>
 main {
@@ -30,9 +32,17 @@ main{
   height: 100%;
 }
 
-.light .dotted-background{
-  background-image: radial-gradient(#d0d0d0, 1px, #eeeeee 0);
-  background-size: 30px 30px;
+.dark .dotted-background{
+  background-repeat: repeat;
+  background-size: 300px;
+
+  animation: moveBackground 60s linear infinite;
+  background-image: url("/assets/background-dark.svg");
+}
+
+@keyframes moveBackground {
+  from {background-position: bottom}
+  to {background-position: top}
 }
 
 </style>
