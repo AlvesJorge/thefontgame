@@ -1,8 +1,12 @@
 <template>
-  <MainNav />
-  <main id="main">
-    <HistoryTable id="historyTable" />
-  </main>
+  <div>
+    <MainNav />
+    <main id="main">
+      <HistoryTable
+        id="historyTable"
+      />
+    </main>
+  </div>
 </template>
 <style scoped>
 #main{

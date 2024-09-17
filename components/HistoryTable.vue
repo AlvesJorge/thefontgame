@@ -1,4 +1,4 @@
-<script lang="js">
+<script setup>
 import {
   FlexRender,
   getCoreRowModel,
@@ -6,46 +6,38 @@ import {
   useVueTable,
 } from "@tanstack/vue-table";
 
-import { h } from "vue";
-import { cn } from "@/lib/utils";
+const fontHistory = useFontHistoryStore();
 const DEMO_TEXT = "The quick brown fox jumps over the lazy dog.";
 
-export default {
-  components: {
-    FlexRender,
+const columns = ref([
+  {
+    accessorKey: "name",
+    header: () => h("div", "Name"),
+    cell: ({ row }) => {
+      return h("a", { href: row.original["externalShowcaseURL"], class: "font-medium" }, row.getValue("name"));
+    },
   },
-  data() {
-    return {
-      cn: cn,
-      fontHistory: useFontHistoryStore()
-    };
-  },
-  beforeMount() {
-    this.fontHistory.history.forEach((font) => importFont(font["stylesheetURL"]));
-    this.columns = [
-      {
-        accessorKey: "name",
-        header: () => h("div", "Name"),
-        cell: ({ row }) => {
-          return h("a", { href: row.original["externalShowcaseURL"], class: "font-medium" }, row.getValue("name"));
-        },
-      },
-      {
-        accessorKey: "demo",
-        header: () => h("div", "Demo"),
-        cell: ({ row }) => {
-          return h("h3", { style: `font-family: ${row.getValue("name")}`, class: "font-medium" }, DEMO_TEXT);
-        },
-      },
-    ];
-    this.table = useVueTable({
-      data: this.fontHistory.history.toReversed(),
-      columns: this.columns,
-      getCoreRowModel: getCoreRowModel(),
-      getPaginationRowModel: getPaginationRowModel(),
-    });
+  {
+    accessorKey: "demo",
+    header: () => h("div", "Demo"),
+    cell: ({ row }) => {
+      return h("h3", { style: `font-family: ${row.getValue("name")}`, class: "font-medium" }, DEMO_TEXT);
+    },
   }
-};
+]);
+
+const table = ref(
+  useVueTable({
+    data: fontHistory.history.toReversed(),
+    columns: columns.value,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  })
+);
+
+onBeforeMount(() => {
+  fontHistory.history.forEach((font) => importFont(font["stylesheetURL"]));
+});
 </script>
 
 <template>
