@@ -18,6 +18,7 @@ export class BaseGame {
     this.ui = {};
     this.updateUI();
     this.name = "infinite";
+    this.answeredWrongFonts = [];
   }
 
   increaseTotalAnswered() {
@@ -28,8 +29,8 @@ export class BaseGame {
     this.score += 1;
   }
 
-  finished() {
-    return false;
+  updateWrongAnswers() {
+    this.answeredWrongFonts.push(new Font(this.answer.fontName));
   }
 
   updateUI() {

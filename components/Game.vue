@@ -4,6 +4,8 @@ import { ref, watch, useTemplateRef } from "vue";
 
 const TIMED_DEFAULT_TIME = 10000;
 const ROUNDS_DEFAULT_ROUNDS = 10;
+// const DEFAULT_GAME_MODE = () => new BaseGame(options)
+const DEFAULT_GAME_MODE = () => new FiniteGame(options, ROUNDS_DEFAULT_ROUNDS);
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
@@ -11,10 +13,7 @@ const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"),
 const gameMode = ref("infinite");
 const showGameReview = ref(false);
 const gameReviewDescription = ref("");
-const game = ref(new BaseGame(options));
-// onNuxtReady(() => {
-//   game.value.start();
-// });
+const game = ref(DEFAULT_GAME_MODE());
 let typewriterObject = {};
 
 watch(options, () => newRound(500), { deep: true });
@@ -61,12 +60,13 @@ async function checkAnswer(event) {
   } else {
     document.querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`).classList.add("correct");
     buttonElementWrapper.classList.add("wrong");
+    game.value.updateWrongAnswers(game.value.answer.fontName);
   }
   game.value.increaseTotalAnswered();
   if (game.value.name === "finite" && game.value.finished()) {
     showGameReview.value = true;
     gameReviewDescription.value = `You got ${game.value.score} out of ${game.value.totalToAnswer}`;
-    game.value = new FiniteGame(options, 10);
+    // game.value = new FiniteGame(options, 10);
   }
   if (game.value.name === "timed") {
     delay = 750;
@@ -79,10 +79,12 @@ async function newRound(delay = 1500) {
   importFont(game.value.answer.stylesheetURL);
   await fontShowcase.value.newRound(game, game.value.answer, delay);
 
+  console.log(game.value.answer.fontName)
+
   if (options.value.typingEffect) {
     writeWithTypewriter();
   }
-  fontHistory.value.addToHistory(game.value.answer.fontName, game.value.answer.stylesheetURL);
+  fontHistory.value.addToHistory(game.value.answer.fontName);
   return Promise.resolve();
 }
 
@@ -180,25 +182,17 @@ function writeWithTypewriter() {
         </JCButton>
       </div>
     </div>
-  </main>
 
-  <Dialog v-model:open="showGameReview">
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Finished!</DialogTitle>
-        <DialogDescription>
-          {{ gameReviewDescription }}
-        </DialogDescription>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
+    <Dialog v-model:open="showGameReview">
+      <GameFinishDialog :game="game" />
+    </Dialog>
+  </main>
 </template>
 
 <style lang="css" scoped>
 #score {
   font-size: 2rem;
 }
-
 
 #fontShowcase {
   font-size: 3rem;

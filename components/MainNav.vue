@@ -135,6 +135,9 @@ button:hover{
 }
 
 @media only screen and (max-width: 400px) {
+  #navHeader{
+    display:none
+  }
   #navHeaderSmaller{
   display:block;
   align-self:center;
