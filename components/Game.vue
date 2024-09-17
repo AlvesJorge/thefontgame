@@ -1,43 +1,41 @@
 <script setup>
 import Typed from "typed.js";
-import { ref, watch, useTemplateRef } from "vue";
 
-const TIMED_DEFAULT_TIME = 10000;
+const TIMED_DEFAULT_TIME = 30000;
 const ROUNDS_DEFAULT_ROUNDS = 10;
-// const DEFAULT_GAME_MODE = () => new BaseGame(options)
 const DEFAULT_GAME_MODE = () => new FiniteGame(options, ROUNDS_DEFAULT_ROUNDS);
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
-const gameMode = ref("infinite");
+const gameMode = ref("finite");
 const showGameReview = ref(false);
-const gameReviewDescription = ref("");
 const game = ref(DEFAULT_GAME_MODE());
 let typewriterObject = {};
 
 watch(options, () => newRound(500), { deep: true });
 
 function timedGameFinishedCallback() {
-  gameReviewDescription.value = `you got ${game.value.score}`;
   showGameReview.value = true;
   game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
 }
 
 function updateGameMode(newGameModeName) {
-  if (gameMode.value == "timed") {
+  if (typewriterObject instanceof Typed) typewriterObject?.destroy();
+
+  if (gameMode.value === "timed") {
     game.value.finished(true);
   }
 
-  if (newGameModeName == "timed") {
+  if (newGameModeName === "timed") {
     game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
     fontShowcase.value.clearText();
   }
-  if (newGameModeName == "finite") {
+  if (newGameModeName === "finite") {
     game.value = new FiniteGame(options, ROUNDS_DEFAULT_ROUNDS);
     newRound(500);
   }
-  if (newGameModeName == "infinite") {
+  if (newGameModeName === "infinite") {
     game.value = new BaseGame(options);
     newRound(500);
   }
@@ -65,8 +63,6 @@ async function checkAnswer(event) {
   game.value.increaseTotalAnswered();
   if (game.value.name === "finite" && game.value.finished()) {
     showGameReview.value = true;
-    gameReviewDescription.value = `You got ${game.value.score} out of ${game.value.totalToAnswer}`;
-    // game.value = new FiniteGame(options, 10);
   }
   if (game.value.name === "timed") {
     delay = 750;
@@ -78,8 +74,6 @@ async function newRound(delay = 1500) {
   game.value.newRound();
   importFont(game.value.answer.stylesheetURL);
   await fontShowcase.value.newRound(game, game.value.answer, delay);
-
-  console.log(game.value.answer.fontName)
 
   if (options.value.typingEffect) {
     writeWithTypewriter();
@@ -126,12 +120,19 @@ function writeWithTypewriter() {
       >
         <b>Score</b> {{ game.ui.score }} / {{ game.ui.totalAnswered }}
       </h2>
-      <h2
+
+      <div
         v-if="game.name === 'finite'"
-        id="score"
+        class="fontShowcaseTop"
       >
-        {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
-      </h2>
+        <h2 id="score">
+          {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
+        </h2>
+        <Button @click="()=> updateGameMode('finite')">
+          New Game
+        </Button>
+      </div>
+
       <h2
         v-if="game.name === 'timed'"
         id="score"
@@ -189,7 +190,7 @@ function writeWithTypewriter() {
   </main>
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 #score {
   font-size: 2rem;
 }
@@ -205,6 +206,14 @@ function writeWithTypewriter() {
   margin: 1rem;
   justify-self: center;
   align-content: center;
+}
+
+.fontShowcaseTop {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+  place-content: center;
+  place-items: center;
 }
 
 .light #fontShowcase {
