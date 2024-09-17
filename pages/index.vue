@@ -1,7 +1,7 @@
 <script lang="js">
 </script>
 <template>
-  <div>
+  <main class="pattern-background">
     <Head>
       <link
         rel="preconnect"
@@ -15,11 +15,9 @@
 
       <title> The Font Game </title>
     </Head>
-    <main class="dotted-background">
-      <MainNav />
-      <Game />
-    </main>
-  </div>
+    <MainNav />
+    <Game />
+  </main>
 </template>
 <style scoped>
 main{
@@ -30,7 +28,7 @@ main{
   height: 100%;
 }
 
-.dark .dotted-background{
+.dark .pattern-background{
   background-repeat: repeat;
   background-size: 300px;
 
