@@ -40,6 +40,7 @@ export default {
           id="numberOfAnswerOptionsInput"
           v-model="options.numberOfAnswerOptions"
           :min="2"
+          :max="4"
         >
           <h2>
             Number of answer options
