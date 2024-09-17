@@ -40,9 +40,9 @@ const DEFAULTS = {
 
 export const useOptionsStore = defineStore("options", {
   state: () => ({
-    numberOfAnswerOptions: DEFAULTS["numberOfAnswerOptions"],
-    exampleTexts: DEFAULTS["exampleTexts"],
-    typingEffect: DEFAULTS["typingEffects"]
+    numberOfAnswerOptions: useStorage("options/numberOfAnswerOptions", DEFAULTS["numberOfAnswerOptions"]),
+    exampleTexts: useStorage("options/exampleTexts", DEFAULTS["exampleTexts"]),
+    typingEffect: useStorage("options/typingEffect", DEFAULTS["typingEffects"])
   }),
   actions: {
     resetExampleTexts() {
@@ -55,10 +55,5 @@ export const useOptionsStore = defineStore("options", {
       this.$state.typingEffect = this.$state.typingEffect ? false : true;
     },
   },
-  hydrate(state) {
-    state.numberOfAnswerOptions = useStorage("options/numberOfAnswerOptions", DEFAULTS["numberOfAnswerOptions"]);
-    state.exampleTexts = useStorage("options/exampleTexts", DEFAULTS["exampleTexts"]);
-    state.typingEffect = useStorage("options/typingEffect", DEFAULTS["typingEffects"]);
-  }
 
 });
