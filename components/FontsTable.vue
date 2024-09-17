@@ -47,7 +47,7 @@ onBeforeMount(() => {
 <template>
   <div class="w-full">
     <div class="rounded-md border">
-      <Table>
+      <Table class="text-xl">
         <TableHeader>
           <TableRow
             v-for="headerGroup in table.getHeaderGroups()"
@@ -102,7 +102,7 @@ onBeforeMount(() => {
         {{ table.getRowModel().rows?.length }} of
         {{ props.fonts.length }}.
       </div>
-      <div class="space-x-2">
+      <div class="space-x-2" v-if="table.getRowModel().rows?.length < props.fonts.length">
         <Button
           variant="outline"
           size="sm"
