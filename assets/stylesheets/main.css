@@ -31,16 +31,16 @@ body,
     --text-high: 60 10% 79%;
     --text-low: 0 3% 6%;
 
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
+    --background: 48 100% 97%;
+    --foreground: 0, 3%, 6%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
+    --card: var(--background);
+    --card-foreground: var(--foreground);
 
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
 
-    --primary: 24 9.8% 10%;
+    --primary: var(--foreground);
     --primary-foreground: 60 9.1% 97.8%;
 
     --secondary: 60 4.8% 95.9%;
