@@ -104,7 +104,7 @@ function writeWithTypewriter() {
   if (typewriterObject instanceof Typed) typewriterObject?.destroy();
   typewriterObject = new Typed("#fontShowcase", {
     strings: [fontShowcase.value.text],
-    typeSpeed: 30,
+    typeSpeed: 25,
     showCursor: false,
   });
 }
