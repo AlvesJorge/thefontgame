@@ -21,7 +21,7 @@ const FEEDBACK_MESSAGES = {
 };
 
 function feedbackMeritCalculator(game) {
-  if (game.name === "timed") return `You got ${game.score} correct out of ${game.totalAnswered} total answered in ${game.time}!`;
+  if (game.name === "timed") return `You got ${game.score} correct out of ${game.totalAnswered} total answered in ${game.time / 1000} seconds!`;
   if (game.totalAnswered > 9) {
     if (game.answeredWrongFonts.length === 0)
       return `${randomValueFromArray(FEEDBACK_MESSAGES.perfect)} You got all ${game.totalAnswered} fonts correct!`;

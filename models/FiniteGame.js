@@ -5,7 +5,7 @@ export default class FiniteGame extends BaseGame {
     this.name = "finite";
   }
 
-  finished() {
+  hasFinished() {
     return this.totalAnswered === this.totalToAnswer;
   }
 }
