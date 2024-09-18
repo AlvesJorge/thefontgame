@@ -1,9 +1,9 @@
 import { randomValueFromArray, sleep } from "../helpers/helpers";
 export class FontShowcase {
   /**
-     * @param {HTMLElement} element
-     * @param {String[]} texts
-     */
+  * @param {HTMLElement} element
+  * @param {String[]} texts
+  */
   constructor(element, texts) {
     this.element = element;
     this.texts = texts;
