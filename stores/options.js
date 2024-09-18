@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 
 const WORD_GROUPS = {
@@ -35,14 +34,16 @@ const WORD_GROUPS = {
 const DEFAULTS = {
   numberOfAnswerOptions: 2,
   exampleTexts: WORD_GROUPS["pangrams"],
-  typingEffects: true
+  typingEffects: true,
+  includeAuxiliaryKeywords: true,
 };
 
 export const useOptionsStore = defineStore("options", {
   state: () => ({
     numberOfAnswerOptions: useStorage("options/numberOfAnswerOptions", DEFAULTS["numberOfAnswerOptions"]),
     exampleTexts: useStorage("options/exampleTexts", DEFAULTS["exampleTexts"]),
-    typingEffect: useStorage("options/typingEffect", DEFAULTS["typingEffects"])
+    typingEffect: useStorage("options/typingEffect", DEFAULTS["typingEffects"]),
+    includeAuxiliaryKeywords: useStorage("options/includeAuxiliaryKeywords", DEFAULTS["includeAuxiliaryKeywords"])
   }),
   actions: {
     resetExampleTexts() {
@@ -53,6 +54,9 @@ export const useOptionsStore = defineStore("options", {
     },
     toggleTypingEffect() {
       this.$state.typingEffect = this.$state.typingEffect ? false : true;
+    },
+    toggleIncludeAuxiliaryKeywords() {
+      this.$state.includeAuxiliaryKeywords = this.$state.includeAuxiliaryKeywords ? false : true;
     },
   },
 

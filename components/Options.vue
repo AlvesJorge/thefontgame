@@ -1,12 +1,5 @@
-<script lang="js">
-
-export default {
-  data() {
-    return {
-      options: useOptionsStore()
-    };
-  },
-};
+<script setup>
+const options = ref(useOptionsStore());
 </script>
 
 <template>
@@ -90,17 +83,36 @@ export default {
         />
         <Label for="typingEffectInput">Typewriter effect</Label>
       </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <div class="flex items-center space-x-2">
+              <Switch
+                id="includeAuxiliaryKeywordsInput"
+                :checked="options.includeAuxiliaryKeywords"
+                @update:checked="options.toggleIncludeAuxiliaryKeywords"
+              />
+              <Label for="includeAuxiliaryKeywordsInput">Include Auxiliary Keywords</Label>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <span>Many fonts include keywords like Serif, Sans, and Mono in their name.<br>
+              These are often helpful when guessing an answer thus making the game easier</span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </SheetContent>
   </Sheet>
 </template>
-<style lang="css">
+
+<style>
  .tags-input-items{
   border: 1px solid hsl(var(--border));
   height:fit-content
 }
 
 #optionsButton:hover{
-  background-color: unset !important;
+  background-color: unset;
 }
 
 #optionsContent{

@@ -1,5 +1,6 @@
 <script setup>
 import Typed from "typed.js";
+import Font from "../models/Font";
 
 const TIMED_DEFAULT_TIME = 30000;
 const ROUNDS_DEFAULT_ROUNDS = 10;
@@ -59,10 +60,13 @@ function updateGameMode(newGameModeName) {
   gameMode.value = newGameModeName;
 }
 
-async function checkAnswer(fontName) {
+/**
+ * * @param {Font} font
+ */
+async function checkAnswer(font) {
   let delay = 1500;
-  const buttonElementWrapper = document.querySelector(`#${fontName.replaceAll(" ", "_")}`);
-  if (fontName === game.value.answer.fontName) {
+  const buttonElementWrapper = document.querySelector(`#${font.nameNoSpaces}`);
+  if (font.name === game.value.answer.fontName) {
     game.value.increaseScore();
     // this is what is causing them to sometimes stay green or red
     buttonElementWrapper.classList.add("correct");
@@ -224,11 +228,11 @@ onMounted(() => {
       <div id="answerButtons">
         <JCButton
           v-for="font in game.ui.selectedFonts"
-          :id="font.replaceAll(' ', '_')"
-          :key="font"
+          :id="font.nameNoSpaces"
+          :key="font.nameNoSpaces"
           @click="checkAnswer(font)"
         >
-          {{ font }}
+          {{ font.displayName }}
         </JCButton>
       </div>
     </div>
