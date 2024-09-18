@@ -129,6 +129,7 @@ onMounted(() => {
           Timed
         </ToggleGroupItem>
       </ToggleGroup>
+
       <div
         v-if="game.name === 'rounds'"
         class="fontShowcaseTop"
@@ -136,11 +137,13 @@ onMounted(() => {
         <h2 id="score">
           {{ game.totalAnswered }} / {{ game.totalToAnswer }}
         </h2>
+
         <Button
           class="p-3"
           @click="()=> updateGameMode('rounds')"
         >
           <span v-if="game.hasFinished()">New Game</span>
+
           <span v-else>
             <svg
               width="20"
@@ -169,6 +172,7 @@ onMounted(() => {
         <br>
         <div id="timer">
           <span> {{ game.timer }} / {{ game.time / 1000 }}</span>
+
           <svg
             width="30"
             height="30"
@@ -183,6 +187,7 @@ onMounted(() => {
               clip-rule="evenodd"
             />
           </svg>
+
           <Button
             class="p-3"
             @click="()=> startTimerGame()"
@@ -207,6 +212,7 @@ onMounted(() => {
           </Button>
         </div>
       </h2>
+
       <div
         id="fontShowcase"
         ref="fontShowcaseElement"
@@ -236,6 +242,14 @@ onMounted(() => {
 <style scoped>
 #score {
   font-size: 2rem;
+}
+#gameModeToggleGroup{
+  gap:1rem;
+}
+
+#gameModeToggleGroup button{
+  font-size:2rem;
+  padding:1.5rem 1rem;
 }
 
 #fontShowcase {
