@@ -29,7 +29,7 @@ function feedbackMeritCalculator(game) {
       return `${randomValueFromArray(FEEDBACK_MESSAGES.reallyBad)} You got it all wrong!`;
   }
 
-  const accuracyPercentage = game.answeredWrongFonts.length / game.totalAnswered >= 0.8;
+  const accuracyPercentage = game.answeredWrongFonts.length / game.totalAnswered;
   if (accuracyPercentage >= 0.7) {
     return `${randomValueFromArray(FEEDBACK_MESSAGES.great)} You got ${game.score} correct out of ${game.totalAnswered} total answered!`;
   }
@@ -55,6 +55,13 @@ const props = defineProps({
       </DialogTitle>
     </DialogHeader>
     {{ feedbackMeritCalculator(props.game) }}
+    <br>
+    Rounds Answered: {{ props.game.totalAnswered }}
+    <br>
+    Options per round: {{ props.game.options.numberOfAnswerOptions }}
+    <br>
+    Auxiliary keywords in font names turned {{ props.game.options.includeAuxiliaryKeywords }}
+    <br>
     <div v-if="props.game.answeredWrongFonts.length > 0">
       <h2 id="tableTitle">
         Here are the ones you got wrong:
