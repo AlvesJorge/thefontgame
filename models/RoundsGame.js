@@ -1,8 +1,8 @@
-export default class FiniteGame extends BaseGame {
+export default class RoundsGame extends BaseGame {
   constructor(options, totalToAnswer) {
     super(options);
     this.totalToAnswer = totalToAnswer;
-    this.name = "finite";
+    this.name = "rounds";
   }
 
   hasFinished() {

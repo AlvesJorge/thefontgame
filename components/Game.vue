@@ -3,12 +3,12 @@ import Typed from "typed.js";
 
 const TIMED_DEFAULT_TIME = 30000;
 const ROUNDS_DEFAULT_ROUNDS = 10;
-const DEFAULT_GAME_MODE = () => new FiniteGame(options, ROUNDS_DEFAULT_ROUNDS);
+const DEFAULT_GAME_MODE = () => new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
-const gameMode = ref("finite");
+const gameMode = ref("rounds");
 const showGameReview = ref(false);
 const game = ref(DEFAULT_GAME_MODE());
 let typewriterObject = {};
@@ -48,8 +48,8 @@ function updateGameMode(newGameModeName) {
     game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
     fontShowcase.value.clearText();
   }
-  if (newGameModeName === "finite") {
-    game.value = new FiniteGame(options, ROUNDS_DEFAULT_ROUNDS);
+  if (newGameModeName === "rounds") {
+    game.value = new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
     newRound(500);
   }
   if (newGameModeName === "infinite") {
@@ -72,7 +72,7 @@ async function checkAnswer(fontName) {
     game.value.updateWrongAnswers(game.value.answer.fontName);
   }
   game.value.increaseTotalAnswered();
-  if (game.value.name === "finite" && game.value.hasFinished()) {
+  if (game.value.name === "rounds" && game.value.hasFinished()) {
     showGameReview.value = true;
     return;
   }
@@ -122,7 +122,7 @@ onMounted(() => {
         <ToggleGroupItem value="infinite">
           Zen
         </ToggleGroupItem>
-        <ToggleGroupItem value="finite">
+        <ToggleGroupItem value="rounds">
           Rounds
         </ToggleGroupItem>
         <ToggleGroupItem value="timed">
@@ -130,7 +130,7 @@ onMounted(() => {
         </ToggleGroupItem>
       </ToggleGroup>
       <div
-        v-if="game.name === 'finite'"
+        v-if="game.name === 'rounds'"
         class="fontShowcaseTop"
       >
         <h2 id="score">
@@ -138,7 +138,7 @@ onMounted(() => {
         </h2>
         <Button
           class="p-3"
-          @click="()=> updateGameMode('finite')"
+          @click="()=> updateGameMode('rounds')"
         >
           <span v-if="game.hasFinished()">New Game</span>
           <span v-else>
