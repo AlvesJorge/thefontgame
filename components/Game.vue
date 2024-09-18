@@ -13,6 +13,9 @@ const showGameReview = ref(false);
 const game = ref(DEFAULT_GAME_MODE());
 let typewriterObject = {};
 
+// A player changing game options should reset their score and start
+// a new round. However the first time a page loads
+// the options "change", this causes it to start a new round twice
 let ignoreOptionsChangeFlag = true;
 
 watch(options, () => {
