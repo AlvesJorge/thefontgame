@@ -40,7 +40,7 @@ function feedbackMeritCalculator(game) {
 }
 
 const props = defineProps({
-  game: [BaseGame, FiniteGame, TimedGame]
+  game: [BaseGame, RoundsGame, TimedGame]
 });
 
 </script>
