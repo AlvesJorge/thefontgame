@@ -56,11 +56,10 @@ function updateGameMode(newGameModeName) {
   gameMode.value = newGameModeName;
 }
 
-async function checkAnswer(event) {
+async function checkAnswer(fontName) {
   let delay = 1500;
-  const buttonElement = event.target;
-  const buttonElementWrapper = buttonElement.parentElement;
-  if (buttonElement.textContent === game.value.answer.fontName) {
+  const buttonElementWrapper = document.querySelector(`#${fontName.replaceAll(" ", "_")}`);
+  if (fontName === game.value.answer.fontName) {
     game.value.increaseScore();
     // this is what is causing them to sometimes stay green or red
     buttonElementWrapper.classList.add("correct");
@@ -218,7 +217,7 @@ onMounted(() => {
           v-for="font in game.ui.selectedFonts"
           :id="font.replaceAll(' ', '_')"
           :key="font"
-          @click="checkAnswer"
+          @click="checkAnswer(font)"
         >
           {{ font }}
         </JCButton>
