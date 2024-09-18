@@ -126,13 +126,6 @@ onMounted(() => {
           Timed
         </ToggleGroupItem>
       </ToggleGroup>
-      <h2
-        v-if="game.name === 'infinite'"
-        id="score"
-      >
-        <b>Score</b> {{ game.ui.score }} / {{ game.ui.totalAnswered }}
-      </h2>
-
       <div
         v-if="game.name === 'finite'"
         class="fontShowcaseTop"
