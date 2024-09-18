@@ -10,6 +10,9 @@ export class Answer {
   }
 }
 export class BaseGame {
+  /**
+   * @param {ReturnType<useOptionsStore>} options
+   */
   constructor(options) {
     this.fonts = fontNames["fonts"];
     this.options = options;

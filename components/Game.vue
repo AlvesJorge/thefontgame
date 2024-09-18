@@ -1,6 +1,5 @@
 <script setup>
 import Typed from "typed.js";
-import Font from "../models/Font";
 
 const TIMED_DEFAULT_TIME = 30000;
 const ROUNDS_DEFAULT_ROUNDS = 10;
@@ -61,7 +60,7 @@ function updateGameMode(newGameModeName) {
 }
 
 /**
- * * @param {Font} font
+ ** @param {Font} font
  */
 async function checkAnswer(font) {
   let delay = 1500;
@@ -109,9 +108,7 @@ function writeWithTypewriter() {
   });
 }
 
-onMounted(() => {
-  newRound(500);
-});
+onMounted(() => newRound(500));
 </script>
 
 <template>
