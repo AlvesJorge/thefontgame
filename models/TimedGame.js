@@ -16,10 +16,18 @@ export default class TimedGame extends BaseGame {
   startTimer() {
     this.clock = setInterval(() => {
       this.timer += 1;
+      if (this.timer == this.time) this.finished();
     }, 1000);
-    setTimeout(() => {
-      this.finished();
-    }, this.time);
+  }
+
+  increaseScore() {
+    super.increaseScore();
+    this.timer += 1;
+  }
+
+  updateWrongAnswers() {
+    super.updateWrongAnswers();
+    this.timer += 1;
   }
 
   finished(interrupted = false) {
