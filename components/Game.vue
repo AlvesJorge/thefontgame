@@ -243,12 +243,13 @@ onMounted(() => {
 #score {
   font-size: 2rem;
 }
+
 #gameModeToggleGroup{
   gap:1rem;
 }
 
 #gameModeToggleGroup button{
-  font-size:2rem;
+  font-size:1.5rem;
   padding:1.5rem 1rem;
 }
 
@@ -260,7 +261,6 @@ onMounted(() => {
   min-height: 14rem;
   padding: 2rem;
   text-align: center;
-  margin: 1rem;
   justify-self: center;
   align-content: center;
 }
