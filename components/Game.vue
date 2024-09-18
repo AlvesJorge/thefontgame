@@ -134,7 +134,7 @@ onMounted(() => {
         class="fontShowcaseTop"
       >
         <h2 id="score">
-          {{ game.ui.totalAnswered }} / {{ game.totalToAnswer }}
+          {{ game.totalAnswered }} / {{ game.totalToAnswer }}
         </h2>
         <Button
           class="p-3"
@@ -164,7 +164,7 @@ onMounted(() => {
         v-if="game.name === 'timed'"
         id="score"
       >
-        <span v-if="game.started"><b>Answered </b> {{ game.ui.score }} correctly</span>
+        <span v-if="game.started"><b>Answered </b> {{ game.score }} correctly</span>
         <span v-else>Press start to begin the timer</span>
         <br>
         <div id="timer">

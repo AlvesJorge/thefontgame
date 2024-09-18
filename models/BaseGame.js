@@ -16,7 +16,7 @@ export class BaseGame {
     this.totalAnswered = 0;
     this.score = 0;
     this.ui = {};
-    this.updateUI();
+    this.updateUIAnswers();
     this.name = "infinite";
     this.answeredWrongFonts = [];
   }
@@ -33,9 +33,9 @@ export class BaseGame {
     this.answeredWrongFonts.push(new Font(this.answer.fontName));
   }
 
-  updateUI() {
-    this.ui.score = this.score;
-    this.ui.totalAnswered = this.totalAnswered;
+  // Showing the new answer options should only happen after
+  // the player had time to see the feedback on their last answer
+  updateUIAnswers() {
     this.ui.selectedFonts = this.selectedFonts;
   }
 

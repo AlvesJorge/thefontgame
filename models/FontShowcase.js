@@ -13,7 +13,7 @@ export class FontShowcase {
     this.preloadFont(answer.fontName);
     await sleep(delay);
     this.clearText();
-    game.value.updateUI();
+    game.value.updateUIAnswers();
     this.updateFontStyle(answer.fontName);
     this.updateText();
     return Promise.resolve();
