@@ -72,7 +72,7 @@ async function checkAnswer(font) {
   } else {
     document.querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`).classList.add("correct");
     buttonElementWrapper.classList.add("wrong");
-    game.value.updateWrongAnswers(game.value.answer.fontName);
+    game.value.updateWrongAnswers(game.value.answer.name);
   }
   game.value.increaseTotalAnswered();
   if (game.value.name === "rounds" && game.value.hasFinished()) {

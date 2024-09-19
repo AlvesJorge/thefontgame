@@ -1,14 +1,5 @@
 import fontNames from "~/assets/fonts.json";
-export class Answer {
-  /**
-   * @param {String} fontName
-   * @param {String} stylesheetURL
-   */
-  constructor(fontName) {
-    this.fontName = fontName;
-    this.stylesheetURL = fontNameToURL(fontName);
-  }
-}
+
 export class BaseGame {
   /**
    * @param {ReturnType<useOptionsStore>} options
@@ -44,7 +35,7 @@ export class BaseGame {
 
   newRound() {
     const randomFonts = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(this.fonts));
-    this.answer = new Answer(randomFonts[0]);
+    this.answer = new Font(randomFonts[0]);
     this.selectedFonts = shuffleArray(randomFonts).map((fontName) => new Font(fontName, this.options));
   }
 }

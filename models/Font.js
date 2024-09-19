@@ -1,4 +1,8 @@
 export default class Font {
+  /**
+   * @param {String} name
+   * @param {ReturnType<useOptionsStore> | Object} options
+   */
   constructor(name, options = {}) {
     this.name = name;
     this.displayName = name;
@@ -13,10 +17,10 @@ export default class Font {
     this.displayName = this.name;
     if (Object.keys(this.options).length === 0) return;
     if (!this.options.includeAuxiliaryKeywords) {
-      this.displayName = this.displayName.replaceAll(" Sans Serif", "");
-      this.displayName = this.displayName.replaceAll(" Sans", "");
-      this.displayName = this.displayName.replaceAll(" Serif", "");
-      this.displayName = this.displayName.replaceAll(" Mono", "");
+      this.displayName = this.displayName.replaceAll(" Sans Serif", "")
+        .replaceAll(" Sans", "")
+        .replaceAll(" Serif", "")
+        .replaceAll(" Mono", "");
     }
   }
 }
