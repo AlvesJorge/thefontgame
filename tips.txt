@@ -7,3 +7,4 @@ Gothic - a style of serif font usually thick ornate strokes
 One - No idea, found one person asking this question here https://graphicdesign.stackexchange.com/questions/30143/what-does-one-mean-in-the-name-of-various-fonts
 but nothing else, reached out to a handful of font designers, some characteristics I see in most of them are: Thick strokes, small spaces between letters, if serif very small ends,
 Script - Usually look like hand writing
+SC - Small caps, meaning this font comes only with upper case letters
