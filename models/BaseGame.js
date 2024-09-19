@@ -24,7 +24,7 @@ export class BaseGame {
   }
 
   updateWrongAnswers() {
-    this.answeredWrongFonts.push(new Font(this.answer.fontName, this.options));
+    this.answeredWrongFonts.push(this.answer);
   }
 
   // Showing the new answer options should only happen after
@@ -35,7 +35,7 @@ export class BaseGame {
 
   newRound() {
     const randomFonts = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(this.fonts));
-    this.answer = new Font(randomFonts[0]);
+    this.answer = new Font(randomFonts[0], this.options);
     this.selectedFonts = shuffleArray(randomFonts).map((fontName) => new Font(fontName, this.options));
   }
 }

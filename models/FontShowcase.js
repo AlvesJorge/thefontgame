@@ -15,11 +15,11 @@ export class FontShowcase {
    * @returns {Promise}
    */
   async newRound(game, answer, delay) {
-    this.preloadFont(answer.fontName);
+    this.preloadFont(answer.name);
     await sleep(delay);
     this.clearText();
     game.value.updateUIAnswers();
-    this.updateFontStyle(answer.fontName);
+    this.updateFontStyle(answer.name);
     this.updateText();
     return Promise.resolve();
   }

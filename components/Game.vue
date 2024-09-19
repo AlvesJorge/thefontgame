@@ -70,7 +70,7 @@ async function checkAnswer(font) {
     // this is what is causing them to sometimes stay green or red
     buttonElementWrapper.classList.add("correct");
   } else {
-    document.querySelector(`#${game.value.answer.fontName.replaceAll(" ", "_")}`).classList.add("correct");
+    document.querySelector(`#${game.value.answer.nameNoSpaces}`).classList.add("correct");
     buttonElementWrapper.classList.add("wrong");
     game.value.updateWrongAnswers(game.value.answer.name);
   }
@@ -93,7 +93,7 @@ async function newRound(delay = 1500) {
   if (options.value.typingEffect) {
     writeWithTypewriter();
   }
-  fontHistory.value.addToHistory(game.value.answer.fontName);
+  fontHistory.value.addToHistory(game.value.answer.name);
   return Promise.resolve();
 }
 

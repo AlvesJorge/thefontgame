@@ -1,11 +1,4 @@
-/**
- * Returns URL of the importable CSS stylesheet
- * @param {String} fontName
- * @returns {String}
- */
-export function fontNameToURL(fontName) {
-  return `https://fonts.googleapis.com/css2?family=${fontName}`;
-}
+
 
 /**
  * @param {String} fontURL
@@ -16,15 +9,6 @@ export function importFont(fontURL) {
   link.setAttribute("rel", "stylesheet");
   link.setAttribute("href", fontURL);
   document.head.appendChild(link);
-}
-
-/**
- * Returns URL of the font showcase in google fonts
- * @param {String} fontName
- * @returns {String}
- */
-export function fontNameToExternalShowcaseURL(fontName) {
-  return `https://fonts.google.com/specimen/${fontName}`;
 }
 
 /**
