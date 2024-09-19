@@ -1,10 +1,11 @@
 import fs from "node:fs";
+import axios from "axios";
 
 const RESTRICTED_STARTING_KEYWORDS = [
   "Playwrite", // many repeats
   "IBM Plex Sans", // many repeats
   "Baloo", // many repeats
-  "Noto Sans",
+  "Noto Sans", // many repeats
   "Noto Serif", // many repeats
   "Big Shoulders", // a few semi repeats
   "IM Fell", // many variations, including some SC ones which should probably be included
@@ -19,7 +20,9 @@ const RESTRICTED_STARTING_KEYWORDS = [
   "Zen", // many non english repeats
   "Ponnala", // Unsure why but this one does not exist on google fonts
   "Tuffy", // Unsure why but this one does not exist on google fonts
-  "Konkhmer Sleokchher" // doesn't work with latin writing system
+  "Edu", // too many semi repeats, bug in parsing metadata in one of them too
+  "Post No Bills Jaffna", // doesn't exist anymore
+  "Kumar One Outline" // doesn't exist anymore
 ];
 
 // Many fonts have variations with these endings, essentially duplicates
@@ -43,7 +46,6 @@ const ONE_OF_EACH_REPEATS = [
   "Libre Barcode 39 Text",
   "Encode Sans"
 ];
-// const familiesFile = fs.readFileSync("families.csv", "utf-8");
 const response = await fetch("https://raw.githubusercontent.com/google/fonts/main/tags/all/families.csv");
 const responseText = await response.text();
 
@@ -60,4 +62,27 @@ const fonts = rows.map((column) => column.split(",")[0])
 // add one of each of the repeats
 fonts.push(...ONE_OF_EACH_REPEATS);
 
-fs.writeFileSync("assets/fonts.json", JSON.stringify({ "fonts": Array.from(new Set(fonts).values()) }));
+const uniqueFontNames = Array.from(new Set(fonts).values());
+
+const metadataBaseURL = "https://raw.githubusercontent.com/google/fonts/main";
+// different fonts are under different licenses, which change the url formation for the metadata option
+const licenses = ["ofl", "apache", "ufl"];
+// Problem: Some fonts are primarily made for language systems other than latin, these often have
+// latin fallbacks as generic sans fonts, others none at all
+// either case we don't want to display these in the game as they can be misleading
+// Solution: This filtering is done by checking the metadata file for the font;
+// A  lack of a primary script indicates it's a latin writing system font
+const latinFonts = await Promise.all(uniqueFontNames.map(async (fontName) => {
+  const fontNameInURL = fontName.toLowerCase().replaceAll(" ", "");
+  let response;
+  for (const license of licenses) {
+  // axios is required because sending to many requests seems to break node fetch / undici, due to ipv6 dns resolution issues
+    response = await axios.get(`${metadataBaseURL}/${license}/${fontNameInURL}/METADATA.pb`, { validateStatus: false });
+    if (response.status !== 404) break;
+  }
+  const lines = response.data.split("\n");
+  const primaryScriptRow = lines.find((row) => row.startsWith("primary_script"));
+  return primaryScriptRow === undefined ? [fontName] : [];
+}));
+
+fs.writeFileSync("assets/fonts.json", JSON.stringify({ "fonts": latinFonts.flat() }));
