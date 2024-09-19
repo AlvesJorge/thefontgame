@@ -5,22 +5,37 @@ export default class Font {
    */
   constructor(name, options = {}) {
     this.name = name;
-    this.displayName = name;
     this.nameNoSpaces = name.replaceAll(" ", "_");
     this.options = options;
-    this.buildDisplayName();
-    this.externalShowcaseURL = fontNameToExternalShowcaseURL(name);
-    this.stylesheetURL = fontNameToURL(name);
+    this.displayName = this.#buildDisplayName();
+    this.externalShowcaseURL = this.#buildExternalShowcaseURL();
+    this.stylesheetURL = this.#buildStylesheetURL();
   }
 
-  buildDisplayName() {
-    this.displayName = this.name;
-    if (Object.keys(this.options).length === 0) return;
+  #buildDisplayName() {
+    if (Object.keys(this.options).length === 0) return this.name;
     if (!this.options.includeAuxiliaryKeywords) {
-      this.displayName = this.displayName.replaceAll(" Sans Serif", "")
-        .replaceAll(" Sans", "")
-        .replaceAll(" Serif", "")
-        .replaceAll(" Mono", "");
+      const auxiliaryKeywords = [" Sans", " Serif", " Mono", " Sans Serif"];
+      const regex = new RegExp(auxiliaryKeywords.join("|"), "gi");
+
+      return this.name.replaceAll(regex, "");
     }
+    return this.name;
+  }
+
+  /**
+   * Returns URL of the importable CSS stylesheet
+   * @returns {String}
+   */
+  #buildStylesheetURL() {
+    return `https://fonts.googleapis.com/css2?family=${this.name}`;
+  }
+
+  /**
+   * Returns URL of the font showcase in google fonts
+   * @returns {String}
+   */
+  #buildExternalShowcaseURL() {
+    return `https://fonts.google.com/specimen/${this.name}`;
   }
 }
