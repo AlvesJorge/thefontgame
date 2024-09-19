@@ -136,7 +136,7 @@ onMounted(() => newRound(500));
         class="fontShowcaseTop"
       >
         <h2 id="score">
-          {{ game.totalAnswered }} / {{ game.totalToAnswer }}
+          {{ game.totalAnswered }} / {{ game.rounds }}
         </h2>
 
         <Button

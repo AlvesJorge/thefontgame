@@ -2,15 +2,15 @@ export default class RoundsGame extends BaseGame {
   /**
    * Game that ends when a set amount of questions were answered
    * @param {ReturnType<useOptionsStore>} options
-   * @param {Number} totalToAnswer
+   * @param {Number} rounds
    */
-  constructor(options, totalToAnswer) {
+  constructor(options, rounds) {
     super(options);
-    this.totalToAnswer = totalToAnswer;
+    this.rounds = rounds;
     this.name = "rounds";
   }
 
   hasFinished() {
-    return this.totalAnswered === this.totalToAnswer;
+    return this.totalAnswered === this.rounds;
   }
 }
