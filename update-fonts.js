@@ -19,6 +19,7 @@ const RESTRICTED_STARTING_KEYWORDS = [
   "Zen", // many non english repeats
   "Ponnala", // Unsure why but this one does not exist on google fonts
   "Tuffy", // Unsure why but this one does not exist on google fonts
+  "Konkhmer Sleokchher" // doesn't work with latin writing system
 ];
 
 // Many fonts have variations with these endings, essentially duplicates
