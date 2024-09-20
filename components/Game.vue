@@ -33,11 +33,18 @@ function startTimerGame() {
   showGameReview.value = false;
 }
 
+function restartTimerGame() {
+  game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
+  fontShowcase.value.clearText();
+  if (typewriterObject instanceof Typed) typewriterObject?.destroy();
+}
+
 function timedGameFinishedCallback() {
   showGameReview.value = true;
 }
 
 function updateGameMode(newGameModeName) {
+  fontShowcase.value.clearText();
   if (typewriterObject instanceof Typed) typewriterObject?.destroy();
 
   if (gameMode.value === "timed") {
@@ -45,8 +52,7 @@ function updateGameMode(newGameModeName) {
   }
 
   if (newGameModeName === "timed") {
-    game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
-    fontShowcase.value.clearText();
+    restartTimerGame();
   }
   if (newGameModeName === "rounds") {
     game.value = new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
@@ -59,6 +65,14 @@ function updateGameMode(newGameModeName) {
   gameMode.value = newGameModeName;
 }
 
+function addParticle(elementQuery, textContent) {
+  const element = document.querySelector(elementQuery);
+  const particle = document.createElement("div");
+  particle.innerHTML = ` <div class="particle"> ${textContent} </div> `;
+  element.appendChild(particle);
+  setTimeout(() => particle.remove(), 1000);
+}
+
 /**
  ** @param {Font} font
  */
@@ -66,11 +80,14 @@ async function checkAnswer(font) {
   let delay = 1500;
   const buttonElementWrapper = document.querySelector(`#${font.nameNoSpaces}`);
 
+  // Create a custom particle element
   if (font.name === game.value.answer.name) {
+    if (game.value.name === "timed") addParticle("#timerText", "-1s");
     game.value.increaseScore();
     // this is what is causing them to sometimes stay green or red
     buttonElementWrapper.classList.add("correct");
   } else {
+    if (game.value.name === "timed") addParticle("#timerText", "+1s");
     document.querySelector(`#${game.value.answer.nameNoSpaces}`).classList.add("correct");
     buttonElementWrapper.classList.add("wrong");
     game.value.updateWrongAnswers(game.value.answer.name);
@@ -136,9 +153,9 @@ onMounted(() => newRound(500));
         v-if="game.name === 'rounds'"
         class="fontShowcaseTop"
       >
-        <h2 id="score">
-          {{ game.totalAnswered }} / {{ game.rounds }}
-        </h2>
+        <div id="score">
+          <h2>{{ game.totalAnswered }} / {{ game.rounds }} </h2>
+        </div>
 
         <Button
           class="p-3"
@@ -165,15 +182,16 @@ onMounted(() => newRound(500));
         </Button>
       </div>
 
-      <h2
+      <div
         v-if="game.name === 'timed'"
         id="score"
       >
-        <span v-if="game.started"><b>Answered </b> {{ game.score }} correctly</span>
-        <span v-else>Press start to begin the timer</span>
+        <span v-if="!game.started">Press start to begin the timer</span>
         <br>
         <div id="timer">
-          <span> {{ game.timer }} / {{ game.time / 1000 }}</span>
+          <div id="timerText">
+            <span> {{ game.timer }} / {{ game.time / 1000 }}</span>
+          </div>
 
           <svg
             width="30"
@@ -191,11 +209,18 @@ onMounted(() => newRound(500));
           </svg>
 
           <Button
+            v-if="!game.started || game.hasFinished()"
             class="p-3"
-            @click="()=> startTimerGame()"
+            @click="startTimerGame"
           >
-            <span v-if="!game.started || game.hasFinished()">Start</span>
-            <span v-else>
+            <span>Start</span>
+          </Button>
+          <Button
+            v-else
+            class="p-3"
+            @click="restartTimerGame"
+          >
+            <span>
               <svg
                 width="20"
                 height="20"
@@ -213,7 +238,7 @@ onMounted(() => newRound(500));
             </span>
           </Button>
         </div>
-      </h2>
+      </div>
 
       <div
         id="fontShowcase"
@@ -244,6 +269,7 @@ onMounted(() => newRound(500));
 <style scoped>
 #score {
   font-size: 2rem;
+  position: relative;
 }
 
 #gameModeToggleGroup{
@@ -286,6 +312,11 @@ onMounted(() => newRound(500));
   place-content: center;
   place-items: center;
   gap: 0.5rem;
+}
+
+#timerText{
+  display:block;
+  position: relative;
 }
 
 #answerButtons {

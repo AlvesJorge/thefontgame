@@ -92,3 +92,32 @@ body,
     --ring: var(--primary);
   }
 }
+
+.particle {
+  inset: -1rem;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(0px, 0px);
+  animation: disperse 1s linear;
+  transition: 1s;
+  color: var(--muted);
+  text-shadow: 0 0 8px var(--accent-foreground);
+  z-index: -30;
+}
+
+#invisibleFontLoader {
+  height: 0;
+  width: 0
+}
+
+@keyframes disperse {
+  from {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-15px, -10px)
+  }
+}

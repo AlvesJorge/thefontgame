@@ -1,3 +1,4 @@
+
 export class FontShowcase {
   /**
    * Responsible for showcasing the font in a element on the page
@@ -30,7 +31,7 @@ export class FontShowcase {
     // this causes a FOUC. Using a invisible element we can load the font
     // before displaying it in the font showcase
     const div = document.createElement("div");
-    div.innerHTML = " <div id='invisibleFontLoader' aria-visibility='hidden' style='height:0; width:0' > &nbsp; </div> ";
+    div.innerHTML = " <div id='invisibleFontLoader' aria-visibility='hidden'> &nbsp; </div> ";
     document.body.append(div);
     return div;
   }
