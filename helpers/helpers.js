@@ -1,5 +1,3 @@
-
-
 /**
  * @param {String} fontURL
  * @returns {Promise}

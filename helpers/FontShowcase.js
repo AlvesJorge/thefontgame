@@ -1,5 +1,6 @@
 export class FontShowcase {
   /**
+   * Responsible for 
    * @param {HTMLElement} element
    * @param {String[]} texts
    */

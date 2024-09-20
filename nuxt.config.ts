@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
   ],
   imports: {
-    dirs: ["helpers", "models"],
+    dirs: ["helpers"],
   },
   colorMode: {
     classSuffix: "",
