@@ -28,11 +28,13 @@ export default class TimedGame extends BaseGame {
 
   increaseScore() {
     super.increaseScore();
-    this.timer += 1;
+    // give user more time on a correct answer
+    this.timer -= 1;
   }
 
   updateWrongAnswers() {
     super.updateWrongAnswers();
+    // detract time from user on wrong answer answer
     this.timer += 1;
   }
 
