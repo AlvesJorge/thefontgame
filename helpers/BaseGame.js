@@ -2,6 +2,7 @@ import fontNames from "~/assets/fonts.json";
 
 export class BaseGame {
   /**
+   * Base Game which the other games derive from
    * @param {ReturnType<useOptionsStore>} options
    */
   constructor(options) {

@@ -1,6 +1,6 @@
 export class FontShowcase {
   /**
-   * Responsible for 
+   * Responsible for showcasing the font in a element on the page
    * @param {HTMLElement} element
    * @param {String[]} texts
    */
@@ -20,12 +20,15 @@ export class FontShowcase {
     await sleep(delay);
     this.clearText();
     game.value.updateUIAnswers();
-    this.updateFontStyle(answer.name);
+    this.changeFontFamily(answer.name);
     this.updateText();
     return Promise.resolve();
   }
 
   createInvisibleElement() {
+    // It seems fonts only truly load once they are in a element in the DOM
+    // this causes a FOUC. Using a invisible element we can load the font
+    // before displaying it in the font showcase
     const div = document.createElement("div");
     div.innerHTML = " <div id='invisibleFontLoader' aria-visibility='hidden' style='height:0; width:0' > &nbsp; </div> ";
     document.body.append(div);
@@ -45,7 +48,7 @@ export class FontShowcase {
   /**
    * @param {String} name
    */
-  async updateFontStyle(name) {
+  async changeFontFamily(name) {
     this.element.style.fontFamily = name;
   }
 

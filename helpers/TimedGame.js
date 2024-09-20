@@ -46,7 +46,10 @@ export default class TimedGame extends BaseGame {
     if (!interrupted) this.finishedCallback.call();
   }
 
+  /**
+   * @returns {Boolean}
+   */
   hasFinished() {
-    this.timer >= this.time;
+    return this.timer >= this.time;
   }
 }

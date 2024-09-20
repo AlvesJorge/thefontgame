@@ -1,5 +1,9 @@
+// Keywords that  can help identify a font. The space before the word is important
+const AUXILIARY_KEYWORDS = [" Sans", " Serif", " Mono", " Sans Serif"];
+
 export default class Font {
   /**
+   * Responsible for creating needed font URLs and different font identifiers
    * @param {String} name
    * @param {ReturnType<useOptionsStore> | Object} options
    */
@@ -15,9 +19,7 @@ export default class Font {
   #buildDisplayName() {
     if (Object.keys(this.options).length === 0) return this.name;
     if (!this.options.includeAuxiliaryKeywords) {
-      const auxiliaryKeywords = [" Sans", " Serif", " Mono", " Sans Serif"];
-      const regex = new RegExp(auxiliaryKeywords.join("|"), "gi");
-
+      const regex = new RegExp(AUXILIARY_KEYWORDS.join("|"), "gi");
       return this.name.replaceAll(regex, "");
     }
     return this.name;
