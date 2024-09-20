@@ -65,7 +65,8 @@ function updateGameMode(newGameModeName) {
 async function checkAnswer(font) {
   let delay = 1500;
   const buttonElementWrapper = document.querySelector(`#${font.nameNoSpaces}`);
-  if (font.name === game.value.answer.fontName) {
+
+  if (font.name === game.value.answer.name) {
     game.value.increaseScore();
     // this is what is causing them to sometimes stay green or red
     buttonElementWrapper.classList.add("correct");
