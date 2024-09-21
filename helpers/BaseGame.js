@@ -35,7 +35,7 @@ export class BaseGame {
   }
 
   getNewFonts() {
-    const randomFontNames = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(this.fonts.slice(0, 2)));
+    const randomFontNames = new Array(this.options.numberOfAnswerOptions).fill().map(() => randomValueFromArray(this.fonts));
     // on the off chance we get the same font twice
     if (new Set(randomFontNames).size !== this.options.numberOfAnswerOptions) {
       return this.getNewFonts();
