@@ -54,14 +54,17 @@ function updateGameMode(newGameModeName) {
   if (newGameModeName === "timed") {
     restartTimerGame();
   }
+
   if (newGameModeName === "rounds") {
     game.value = new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
     newRound(500);
   }
+
   if (newGameModeName === "infinite") {
     game.value = new BaseGame(options);
     newRound(500);
   }
+
   gameMode.value = newGameModeName;
 }
 
@@ -79,6 +82,9 @@ function addParticle(elementQuery, textContent) {
 async function checkAnswer(font) {
   let delay = 1500;
   const buttonElementWrapper = document.querySelector(`#${font.nameNoSpaces}`);
+  const correctButtonElementWrapper = document.querySelector(`#${game.value.answer.nameNoSpaces}`);
+  const allButtonElementWrappers = document.querySelectorAll(".answer-buttons");
+  allButtonElementWrappers.forEach((button) => button.disabled = true);
 
   // Create a custom particle element
   if (font.name === game.value.answer.name) {
@@ -88,7 +94,7 @@ async function checkAnswer(font) {
     buttonElementWrapper.classList.add("correct");
   } else {
     if (game.value.name === "timed") addParticle("#timerText", "+1s");
-    document.querySelector(`#${game.value.answer.nameNoSpaces}`).classList.add("correct");
+    correctButtonElementWrapper.classList.add("correct");
     buttonElementWrapper.classList.add("wrong");
     game.value.updateWrongAnswers(game.value.answer.name);
   }
@@ -100,7 +106,16 @@ async function checkAnswer(font) {
   if (game.value.name === "timed") {
     delay = 750;
   }
+  // on the off chance the same answer options shows again on the next question
+  setTimeout(() => resetButtons(allButtonElementWrappers), delay);
   newRound(delay);
+}
+
+function resetButtons(buttons) {
+  buttons.forEach((button) => {
+    button.classList.disabled = false;
+    button.classList.remove("correct", "wrong");
+  });
 }
 
 async function newRound(delay = 1500) {
@@ -253,6 +268,7 @@ onMounted(() => newRound(500));
           v-for="font in game.ui.selectedFonts"
           :id="font.nameNoSpaces"
           :key="font.nameNoSpaces"
+          class="answer-buttons"
           @click="checkAnswer(font)"
         >
           {{ font.displayName }}
