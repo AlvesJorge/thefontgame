@@ -34,7 +34,7 @@ const WORD_GROUPS = {
 const DEFAULTS = {
   numberOfAnswerOptions: 2,
   exampleTexts: WORD_GROUPS["pangrams"],
-  typingEffects: true,
+  typingEffects: false,
   includeAuxiliaryKeywords: true,
 };
 
