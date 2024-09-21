@@ -112,12 +112,12 @@ body,
 
 @keyframes disperse {
   from {
-    transform: translate(0px, 0px);
+    transform: translate(-10px, -10px);
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    transform: translate(-15px, -10px)
+    transform: translate(-20px, -15px)
   }
 }
