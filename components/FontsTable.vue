@@ -44,9 +44,14 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="w-full">
-    <div class="rounded-md border">
-      <Table class="text-xl">
+  <div
+    class="w-full h-full"
+  >
+    <div
+      id="tableWrapper"
+      class="rounded-md border h-full"
+    >
+      <Table class="text-xl h-full">
         <TableHeader>
           <TableRow
             v-for="headerGroup in table.getHeaderGroups()"
@@ -64,13 +69,13 @@ onBeforeMount(() => {
             </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody class="h-full max-w-full">
           <template v-if="table.getRowModel().rows?.length">
             <template
               v-for="row in table.getRowModel().rows"
               :key="row.id"
             >
-              <TableRow>
+              <TableRow class="table-rows">
                 <TableCell
                   v-for="cell in row.getVisibleCells()"
                   :key="cell.id"
@@ -128,5 +133,16 @@ onBeforeMount(() => {
 <style scoped>
 a {
  color: hsl(var(--primary));
+}
+#fontsTable{
+  height:80vh;
+  width:80vw;
+}
+#tableWrapper > div{
+  height:100%
+}
+.table-rows{
+  max-width: 100%;
+  overflow: hidden;
 }
 </style>
