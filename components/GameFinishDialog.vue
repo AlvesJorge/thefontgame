@@ -3,10 +3,9 @@ const FEEDBACK_MESSAGES = {
   perfect: ["You must be cheating!"],
   great: [
     "You're quite the pro.",
-    "You've seen more than handful of fonts back in your day and it shows.",
+    "You've seen more than handful of fonts back in your day.",
     "Is this real life or just fontasy?",
     "Fontastic!",
-    "You tried dipping your toes in the fontain of type faces, fell in, and returned an expert."
   ],
   normal: [
     "Cool!",
@@ -29,7 +28,7 @@ function feedbackMeritCalculator(game) {
     if (game.answeredWrongFonts.length === game.totalAnswered)
       return [randomValueFromArray(FEEDBACK_MESSAGES.reallyBad), "You got it all wrong!"];
 
-    const accuracyPercentage = game.answeredWrongFonts.length / game.totalAnswered;
+    const accuracyPercentage = (game.totalAnswered - game.answeredWrongFonts.length) / game.totalAnswered;
 
     if (accuracyPercentage >= 0.7) {
       return [randomValueFromArray(FEEDBACK_MESSAGES.great), `You got ${game.score} correct out of ${game.totalAnswered} total answered!`];
@@ -64,7 +63,11 @@ onBeforeUpdate(() => {
       </DialogTitle>
     </DialogHeader>
     <span class="text-2xl">
-      {{ feedback[0] }} <br> {{ feedback.length == 2 ? feedback[1] : "" }}
+      {{ feedback[0] }}
+    </span>
+    <br>
+    <span class="text-xl">
+      {{ feedback.length == 2 ? feedback[1] : "" }}
     </span>
     <!-- <br>
     Rounds Answered: {{ props.game.totalAnswered }}
@@ -85,6 +88,8 @@ onBeforeUpdate(() => {
 <style>
 .dialogContent{
   min-width: 80vw;
+  max-height: 90vh;
+  overflow: scroll;
 }
 #tableTitle{
   margin:1rem 0;
