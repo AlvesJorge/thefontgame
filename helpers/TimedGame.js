@@ -5,7 +5,7 @@ export default class TimedGame extends BaseGame {
    * @param {Number} time
    * @param {Function} finishedCallback
    */
-  constructor(options, time, finishedCallback) {
+  constructor(options, finishedCallback, time = 30000) {
     super(options);
     this.time = time;
     this.timer = 0;

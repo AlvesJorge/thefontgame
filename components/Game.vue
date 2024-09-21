@@ -1,9 +1,7 @@
 <script setup>
 import Typed from "typed.js";
 
-const TIMED_DEFAULT_TIME = 30000;
-const ROUNDS_DEFAULT_ROUNDS = 1;
-const DEFAULT_GAME_MODE = () => new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
+const DEFAULT_GAME_MODE = () => new RoundsGame(options);
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
@@ -34,7 +32,7 @@ function startTimerGame() {
 }
 
 function restartTimerGame() {
-  game.value = new TimedGame(options, TIMED_DEFAULT_TIME, timedGameFinishedCallback);
+  game.value = new TimedGame(options, timedGameFinishedCallback);
   fontShowcase.value.clearText();
   if (typewriterObject instanceof Typed) typewriterObject?.destroy();
 }
@@ -56,7 +54,7 @@ function updateGameMode(newGameModeName) {
   }
 
   if (newGameModeName === "rounds") {
-    game.value = new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
+    game.value = new RoundsGame(options);
     newRound(500);
   }
 

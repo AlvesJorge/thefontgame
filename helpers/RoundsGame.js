@@ -4,7 +4,7 @@ export default class RoundsGame extends BaseGame {
    * @param {ReturnType<useOptionsStore>} options
    * @param {Number} rounds
    */
-  constructor(options, rounds) {
+  constructor(options, rounds = 10) {
     super(options);
     this.rounds = rounds;
     this.name = "rounds";
