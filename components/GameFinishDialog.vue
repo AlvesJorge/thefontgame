@@ -21,26 +21,35 @@ const FEEDBACK_MESSAGES = {
 };
 
 function feedbackMeritCalculator(game) {
-  if (game.name === "timed") return `You got ${game.score} correct out of ${game.totalAnswered} total answered in ${game.time / 1000} seconds!`;
+  if (game.name === "timed") return [`You got ${game.score} correct out of ${game.totalAnswered} total answered in ${game.time / 1000} seconds!`];
   if (game.totalAnswered > 9) {
     if (game.answeredWrongFonts.length === 0)
-      return `${randomValueFromArray(FEEDBACK_MESSAGES.perfect)} You got all ${game.totalAnswered} fonts correct!`;
-    if (game.answeredWrongFonts.length === game.totalAnswered)
-      return `${randomValueFromArray(FEEDBACK_MESSAGES.reallyBad)} You got it all wrong!`;
-  }
+      return [randomValueFromArray(FEEDBACK_MESSAGES.perfect), `You got all ${game.totalAnswered} fonts correct!`];
 
-  const accuracyPercentage = game.answeredWrongFonts.length / game.totalAnswered;
-  if (accuracyPercentage >= 0.7) {
-    return `${randomValueFromArray(FEEDBACK_MESSAGES.great)} You got ${game.score} correct out of ${game.totalAnswered} total answered!`;
+    if (game.answeredWrongFonts.length === game.totalAnswered)
+      return [randomValueFromArray(FEEDBACK_MESSAGES.reallyBad), "You got it all wrong!"];
+
+    const accuracyPercentage = game.answeredWrongFonts.length / game.totalAnswered;
+
+    if (accuracyPercentage >= 0.7) {
+      return [randomValueFromArray(FEEDBACK_MESSAGES.great), `You got ${game.score} correct out of ${game.totalAnswered} total answered!`];
+    }
+    if (accuracyPercentage >= 0.4) {
+      return [randomValueFromArray(FEEDBACK_MESSAGES.normal), `You got ${game.score} correct out of ${game.totalAnswered} total answered!`];
+    }
   }
-  if (accuracyPercentage >= 0.4) {
-    return `${randomValueFromArray(FEEDBACK_MESSAGES.normal)} You got ${game.score} correct out of ${game.totalAnswered} total answered!`;
-  }
-  return `You got ${game.score} correct out of ${game.totalAnswered} total answered!`;
+  return [`You got ${game.score} correct out of ${game.totalAnswered} total answered!`];
 }
 
 const props = defineProps({
-  game: [BaseGame, RoundsGame, TimedGame]
+  game: [BaseGame, RoundsGame, TimedGame],
+  showing: Boolean
+});
+
+const feedback = ref(feedbackMeritCalculator(props.game));
+
+onBeforeUpdate(() => {
+  feedback.value = feedbackMeritCalculator(props.game);
 });
 
 </script>
@@ -54,14 +63,16 @@ const props = defineProps({
         Finished!
       </DialogTitle>
     </DialogHeader>
-    {{ feedbackMeritCalculator(props.game) }}
-    <br>
+    <span class="text-2xl">
+      {{ feedback[0] }} <br> {{ feedback.length == 2 ? feedback[1] : "" }}
+    </span>
+    <!-- <br>
     Rounds Answered: {{ props.game.totalAnswered }}
     <br>
     Options per round: {{ props.game.options.numberOfAnswerOptions }}
     <br>
-    Auxiliary keywords in font names turned {{ props.game.options.includeAuxiliaryKeywords }}
-    <br>
+    Auxiliary keywords in font names turned {{ props.game.options.includeAuxiliaryKeywords ? "on" : "off" }}
+    <br> -->
     <div v-if="props.game.answeredWrongFonts.length > 0">
       <h2 id="tableTitle">
         Here are the ones you got wrong:

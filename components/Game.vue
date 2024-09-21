@@ -2,7 +2,7 @@
 import Typed from "typed.js";
 
 const TIMED_DEFAULT_TIME = 30000;
-const ROUNDS_DEFAULT_ROUNDS = 10;
+const ROUNDS_DEFAULT_ROUNDS = 1;
 const DEFAULT_GAME_MODE = () => new RoundsGame(options, ROUNDS_DEFAULT_ROUNDS);
 
 const options = ref(useOptionsStore());
@@ -277,7 +277,10 @@ onMounted(() => newRound(500));
     </div>
 
     <Dialog v-model:open="showGameReview">
-      <GameFinishDialog :game="game" />
+      <GameFinishDialog
+        :game="game"
+        :showing="showGameReview"
+      />
     </Dialog>
   </main>
 </template>
