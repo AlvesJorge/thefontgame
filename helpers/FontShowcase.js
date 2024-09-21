@@ -1,4 +1,3 @@
-
 export class FontShowcase {
   /**
    * Responsible for showcasing the font in a element on the page

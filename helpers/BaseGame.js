@@ -34,9 +34,17 @@ export class BaseGame {
     this.ui.selectedFonts = this.selectedFonts;
   }
 
+  getNewFonts() {
+    const randomFontNames = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(this.fonts.slice(0, 2)));
+    // on the off chance we get the same font twice
+    if (new Set(randomFontNames).size !== this.options.numberOfAnswerOptions) {
+      return this.getNewFonts();
+    }
+    return randomFontNames;
+  }
+
   newRound() {
-    const randomFonts = new Array(this.options.numberOfAnswerOptions).fill("").map(() => randomValueFromArray(this.fonts));
-    this.answer = new Font(randomFonts[0], this.options);
-    this.selectedFonts = shuffleArray(randomFonts).map((fontName) => new Font(fontName, this.options));
+    this.selectedFonts = this.getNewFonts().map((fontName) => new Font(fontName, this.options));
+    this.answer = randomValueFromArray(this.selectedFonts);
   }
 }
