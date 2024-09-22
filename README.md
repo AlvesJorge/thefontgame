@@ -1,3 +1,7 @@
+### dev note
+
+For some reason intellisense relying on nuxt imports is only enabled once the `.nuxt/eslint.config.mjs` is open at least once, and needs to be opened at least once everytime the project is opened on vscode. Not sure how to fix this
+
 ### To update fonts
 
 Run: `npm run updatefonts`
