@@ -8,7 +8,7 @@
         </CardHeader>
         <CardContent>
           <p>Test your <b>intuition</b> and get to see some fonts you otherwise might have never seen.</p>
-          <p>You may know a dozen fonts by heart, but with over <b>1200 fonts available</b>, you will have to mostly guess.</p>
+          <p>You may know a dozen fonts by heart, but with over <b>1100 fonts available</b>, you will have to mostly guess.</p>
           <p>While developing this game I've gotten better at recognizing many fonts and <b>consistently</b> get better correct percentage than the odds of just guessing!</p>
         </CardContent>
       </Card>
