@@ -1,5 +1,5 @@
 // Keywords that  can help identify a font. The space before the word is important
-const AUXILIARY_KEYWORDS = [" Sans", " Serif", " Mono", " Sans Serif"];
+const AUXILIARY_KEYWORDS = [" Sans", " Serif", " Mono", " Sans Serif", " Script", " Slab"];
 
 export default class Font {
   /**
