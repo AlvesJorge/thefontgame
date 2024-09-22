@@ -22,7 +22,7 @@ export default class TimedGame extends BaseGame {
   startTimer() {
     this.clock = setInterval(() => {
       this.timer += 1;
-      if (this.timer == this.time) this.finished();
+      if (this.timer >= this.time / 1000) this.finished();
     }, 1000);
   }
 
@@ -43,7 +43,7 @@ export default class TimedGame extends BaseGame {
    */
   finished(interrupted = false) {
     clearInterval(this.clock);
-    this.timer = this.time;
+    this.timer = this.time / 1000;
     this.started = false;
     if (!interrupted) this.finishedCallback.call();
   }
