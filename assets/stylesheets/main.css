@@ -106,8 +106,11 @@ body,
 }
 
 #invisibleFontLoader {
-  height: 0;
-  width: 0
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: -10;
+  pointer-events: none;
 }
 
 @keyframes disperse {
