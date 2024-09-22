@@ -5,6 +5,7 @@ const DEFAULT_GAME_MODE = () => new RoundsGame(options);
 
 const options = ref(useOptionsStore());
 const fontHistory = ref(useFontHistoryStore());
+const stats = useStatsStore();
 const fontShowcase = ref(new FontShowcase(useTemplateRef("fontShowcaseElement"), options.value.exampleTexts));
 const gameMode = ref("rounds");
 const showGameReview = ref(false);
@@ -39,6 +40,10 @@ function restartTimerGame() {
 }
 
 function timedGameFinishedCallback() {
+  const answeredCorrectlyCount = game.value.totalAnswered - game.value.answeredWrongFonts.length;
+  if (stats.bestTimedGame[0] < answeredCorrectlyCount) {
+    stats.updateBestTimedGame(answeredCorrectlyCount, game.value.time / 1000);
+  }
   showGameReview.value = true;
 }
 
@@ -85,6 +90,8 @@ async function checkAnswer(font) {
   const allButtonElementWrappers = document.querySelectorAll(".answer-buttons");
   allButtonElementWrappers.forEach((button) => button.disabled = true);
 
+  stats.incrementTotalAnswered();
+
   // Create a custom particle element
   if (font.name === game.value.answer.name) {
     if (game.value.name === "timed") addParticle("#timerText", "-1s");
@@ -99,6 +106,10 @@ async function checkAnswer(font) {
   }
   game.value.increaseTotalAnswered();
   if (game.value.name === "rounds" && game.value.hasFinished()) {
+    const answeredCorrectlyCount = game.value.totalAnswered - game.value.answeredWrongFonts.length;
+    if (stats.bestRoundsGame[0] < answeredCorrectlyCount) {
+      stats.updateBestRoundsGame(answeredCorrectlyCount, game.value.totalAnswered);
+    }
     showGameReview.value = true;
     return;
   }

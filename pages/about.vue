@@ -18,10 +18,9 @@
         </CardHeader>
         <CardContent>
           <p>My <b>biggest tip</b> is to use your intuition, I think most people can know which of the following fonts is <b>Pirata</b> and which one is <b>Gamja Flower</b>.</p>
-          <p class="w-fit block mx-auto">
+          <p class="w-fit block mx-auto text-2xl my-3">
             <span id="pirataFont">Font One</span> | <span id="flowerFont">Font Two</span>
           </p>
-          <br>
           <p>Font names <b>sometimes</b> can already have auxiliary keywords that can help you in your answers:</p>
           <Table class="w-fit">
             <TableCaption>Useful keywords in font names</TableCaption>
@@ -158,5 +157,12 @@
 #flowerFont{
     font-family: "Gamja Flower";
     font-size: 2.5rem;
+}
+
+@media only screen and (max-width: 800px) {
+  #main {
+    padding: 1rem;
+    width:95%
+  }
 }
 </style>
