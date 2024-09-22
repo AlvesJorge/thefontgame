@@ -122,4 +122,18 @@ const options = ref(useOptionsStore());
   gap: 2rem;
   overflow: auto;
 }
+
+/* This is copied from the other buttons on navbar, not ideal */
+@media only screen and (max-width: 800px) {
+  #optionsButton {
+    padding:0.5rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #optionsButton {
+    padding:0.4rem;
+  }
+
+}
 </style>

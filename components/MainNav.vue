@@ -166,9 +166,13 @@ button:hover {
   #navigationMenuList {
     padding: 0 0.2rem;
   }
+
+  #navButtons button{
+    padding:0.5rem;
+  }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 600px) {
   #navHeader {
     display: none
   }
@@ -181,5 +185,10 @@ button:hover {
     font-weight: 800;
     font-size: 1.3rem;
   }
+
+ #navButtons button{
+    padding:0.4rem;
+  }
 }
+
 </style>
