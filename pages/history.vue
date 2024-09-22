@@ -3,6 +3,9 @@ function clearFontHistory() {
   useFontHistoryStore().history = [];
   window.location.reload();
 }
+function fontNamesToFontInstances(fontNames) {
+  return fontNames.map((name) => new Font(name));
+}
 </script>
 <template>
   <div>
@@ -10,7 +13,7 @@ function clearFontHistory() {
     <main id="main">
       <FontsTable
         id="fontsTable"
-        :fonts="useFontHistoryStore().history.toReversed()"
+        :fonts="fontNamesToFontInstances(useFontHistoryStore().history.toReversed())"
       />
 
       <Button
@@ -26,7 +29,7 @@ function clearFontHistory() {
 #main{
   display:grid;
   place-content:center;
-  height:90%;
+  margin-top:2rem;
 }
 #fontsTable{
   max-width:1000px;

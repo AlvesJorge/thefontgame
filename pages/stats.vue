@@ -4,7 +4,7 @@ import allFontNames from "~/assets/fonts.json";
 const fontNames = allFontNames["fonts"];
 const historyStore = useFontHistoryStore();
 const statsStore = useStatsStore();
-const seenFonts = new Set(historyStore.history.map((font) => font.name));
+const seenFonts = new Set(historyStore.history);
 function clearData() {
   window.localStorage.clear();
   window.location.reload();

@@ -6,7 +6,7 @@ export const useFontHistoryStore = defineStore("fontHistory", {
   }),
   actions: {
     addToHistory(fontName) {
-      this.$state.history.push(new Font(fontName));
+      this.$state.history.push(fontName);
     },
   },
 });
