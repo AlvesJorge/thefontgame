@@ -57,18 +57,22 @@ onBeforeUpdate(() => {
   <DialogContent
     class="text-xl dialogContent"
   >
-    <DialogHeader id="dialogHeader">
-      <DialogTitle class="text-3xl">
+    <DialogHeader id="dialogHeader h-min">
+      <DialogTitle class="text-3xl h-min">
         Finished!
       </DialogTitle>
     </DialogHeader>
-    <span class="text-2xl">
+    <span class="text-2xl h-min">
       {{ feedback[0] }}
     </span>
-    <br>
-    <span class="text-xl">
-      {{ feedback.length == 2 ? feedback[1] : "" }}
-    </span>
+    <div
+      v-if="feedback.length == 2"
+      class="h-min"
+    >
+      <span class="text-xl">
+        {{ feedback[1] }}
+      </span>
+    </div>
     <!-- <br>
     Rounds Answered: {{ props.game.totalAnswered }}
     <br>
@@ -88,8 +92,8 @@ onBeforeUpdate(() => {
 <style>
 .dialogContent{
   min-width: 80vw;
-  max-height: 90vh;
-  overflow: scroll;
+  max-height: 80vh;
+  overflow: auto;
 }
 #tableTitle{
   margin:1rem 0;
