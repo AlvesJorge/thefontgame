@@ -112,7 +112,7 @@ async function checkAnswer(font) {
 
 function resetButtons(buttons) {
   buttons.forEach((button) => {
-    button.classList.disabled = false;
+    button.disabled = false;
     button.classList.remove("correct", "wrong");
   });
 }
