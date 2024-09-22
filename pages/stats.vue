@@ -50,11 +50,11 @@ function clearData() {
       </Table>
       <Card>
         <CardHeader>
-          <CardTitle>About these stats</CardTitle>
+          <CardTitle>About this data</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>All this data is stored in your browser and doesn't leave it. </p>
-          <p>Although the space it takes is negligible, you may empty it and other options you've set by clicking the button below</p>
+          <p>All this data is stored in your browser.</p>
+          <p>Although the space it uses is negligible, you may delete it by using the button below</p>
           <br>
           <Button @click="()=> clearData()">
             Reset Stats and Options
