@@ -1,3 +1,9 @@
+<script setup>
+function clearFontHistory() {
+  useFontHistoryStore().history = [];
+  window.location.reload();
+}
+</script>
 <template>
   <div>
     <MainNav />
@@ -6,6 +12,13 @@
         id="fontsTable"
         :fonts="useFontHistoryStore().history.toReversed()"
       />
+
+      <Button
+        class="w-fit mt-4"
+        @click="clearFontHistory"
+      >
+        Clear History
+      </Button>
     </main>
   </div>
 </template>
