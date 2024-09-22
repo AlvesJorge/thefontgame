@@ -22,7 +22,8 @@ const RESTRICTED_STARTING_KEYWORDS = [
   "Tuffy", // Unsure why but this one does not exist on google fonts
   "Edu", // too many semi repeats, bug in parsing metadata in one of them too
   "Post No Bills Jaffna", // doesn't exist anymore
-  "Kumar One Outline" // doesn't exist anymore
+  "Kumar One Outline", // doesn't exist anymore
+  "Yarndings" // not latin text
 ];
 
 // Many fonts have variations with these endings, essentially duplicates
