@@ -14,7 +14,6 @@ function clearData() {
   <div>
     <MainNav />
     <main id="main">
-      <h1>Your Stats</h1>
       <Table
         id="statsTable"
         class="w-full"
@@ -76,6 +75,7 @@ function clearData() {
   gap:2rem;
 }
 #statsTable{
+  margin-top:2rem;
   font-size:5rem !important;
   border-radius:1rem;
   border:2px solid hsl(var(--border));
@@ -83,9 +83,6 @@ function clearData() {
 }
 #statsTable * {
   font-size:1.2rem;
-}
-h1{
-  font-size:3rem;
 }
 
 @media only screen and (max-width: 800px) {
