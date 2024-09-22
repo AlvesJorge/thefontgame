@@ -151,10 +151,6 @@
   font-size: 1.2rem;
   padding:2rem;
 }
-#fontsTable{
-  max-width:1000px;
-  min-width:500px;
-}
 #pirataFont{
     font-family: "Pirata One";
     font-size: 2rem;
