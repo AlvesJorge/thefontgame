@@ -361,14 +361,15 @@ onMounted(() => newRound(500));
   justify-content: center;
   align-self: center;
   height: 100%;
+  align-content:center;
+  padding-bottom:12rem;
+  min-height:90vh;
 }
 
 @media only screen and (max-width: 800px) {
   #game {
     padding: 0 0.5rem;
     gap: 1rem;
-    min-height: 90vh;
-    align-content:center;
   }
 
   #score {
