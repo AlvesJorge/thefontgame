@@ -25,6 +25,7 @@ watch(options, () => {
 }, { deep: true });
 
 function startTimerGame() {
+  restartTimerGame();
   newRound(500);
   sleep(1500);
   game.value.start();
