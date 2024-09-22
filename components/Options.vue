@@ -39,6 +39,7 @@ const options = ref(useOptionsStore());
             Number of answer options
             <Button
               variant="ghost"
+              class="ml-2"
               @click="options.resetNumberOfAnswerOptions"
             >
               Reset
@@ -56,6 +57,7 @@ const options = ref(useOptionsStore());
           Phrases to showcase the font
           <Button
             variant="ghost"
+            class="ml-2 mb-2"
             @click="options.resetExampleTexts"
           >
             Reset
