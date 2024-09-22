@@ -54,7 +54,7 @@ function clearData() {
         </CardHeader>
         <CardContent>
           <p>All this data is stored in your browser and doesn't leave it. </p>
-          <p>Although the space it takes is negligible, you may empty it and other options you've set in the button below</p>
+          <p>Although the space it takes is negligible, you may empty it and other options you've set by clicking the button below</p>
           <br>
           <Button @click="()=> clearData()">
             Reset Stats and Options
