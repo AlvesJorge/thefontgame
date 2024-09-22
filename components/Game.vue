@@ -25,12 +25,20 @@ watch(options, () => {
   }
 }, { deep: true });
 
-function startTimerGame() {
+async function startTimerGame() {
   restartTimerGame();
+  // Start Countdown
+  fontShowcase.value.changeFontFamily("Helvetica");
+  fontShowcase.value.text = 3;
+  await sleep(1000);
+  fontShowcase.value.text = 2;
+  await sleep(1000);
+  fontShowcase.value.text = 1;
+  await sleep(1000);
+
   newRound(500);
   sleep(1500);
   game.value.start();
-  showGameReview.value = false;
 }
 
 function restartTimerGame() {
@@ -211,8 +219,28 @@ onMounted(() => newRound(500));
         v-if="game.name === 'timed'"
         id="score"
       >
-        <span v-if="!game.started">Press start to begin the timer</span>
-        <br>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-2 mt-1"
+              ><path
+                d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM8.24992 4.49999C8.24992 4.9142 7.91413 5.24999 7.49992 5.24999C7.08571 5.24999 6.74992 4.9142 6.74992 4.49999C6.74992 4.08577 7.08571 3.74999 7.49992 3.74999C7.91413 3.74999 8.24992 4.08577 8.24992 4.49999ZM6.00003 5.99999H6.50003H7.50003C7.77618 5.99999 8.00003 6.22384 8.00003 6.49999V9.99999H8.50003H9.00003V11H8.50003H7.50003H6.50003H6.00003V9.99999H6.50003H7.00003V6.99999H6.50003H6.00003V5.99999Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+              /></svg>
+            </TooltipTrigger>
+            <TooltipContent>
+              Getting a correct answer awards you with +1 seconds, and a wrong answer -1 seconds
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <div id="timer">
           <div id="timerText">
             <span> {{ game.timer }} / {{ game.time / 1000 }}</span>
@@ -235,7 +263,7 @@ onMounted(() => newRound(500));
 
           <Button
             v-if="!game.started || game.hasFinished()"
-            class="p-3"
+            class="p-3 text-xl"
             @click="startTimerGame"
           >
             <span>Start</span>
@@ -299,6 +327,9 @@ onMounted(() => newRound(500));
 #score {
   font-size: 2rem;
   position: relative;
+  display:grid;
+  grid-auto-flow: column;
+  align-content: center;
 }
 
 #gameModeToggleGroup{
@@ -346,6 +377,9 @@ onMounted(() => newRound(500));
 #timerText{
   display:block;
   position: relative;
+}
+.span-all-columns{
+  -ms-grid-column-span: 3;
 }
 
 #answerButtons {
