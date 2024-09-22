@@ -7,6 +7,7 @@ In this game a user gets to see the name of a font in a showcase, and guess from
   - Zen - Player just picks answers, no score, infinitely
   - Rounds - Player plays 15 rounds of questions
   - Timed - Player plays for 30 seconds and gains/loses 1 second depending if they got the answer correct or not
+- Over 1100 fonts
 - Players can set their own game options for:
   - Number of answer options
   - Show/Hide Auxiliary keywords in font names (sans, mono, serif etc...)
