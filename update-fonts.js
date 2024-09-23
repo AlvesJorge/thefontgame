@@ -23,7 +23,8 @@ const RESTRICTED_STARTING_KEYWORDS = [
   "Edu", // too many semi repeats, bug in parsing metadata in one of them too
   "Post No Bills Jaffna", // doesn't exist anymore
   "Kumar One Outline", // doesn't exist anymore
-  "Yarndings" // not latin text
+  "Yarndings", // not latin text
+  "Merge One" // doesn't exist
 ];
 
 // Many fonts have variations with these endings, essentially duplicates
