@@ -392,6 +392,7 @@ onMounted(() => newRound(500));
   padding-top: 0.5rem;
   justify-content: center;
   align-items: center;
+  min-height: 4rem;
 
   & button {
     font-size: 8rem;
