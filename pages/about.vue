@@ -7,9 +7,20 @@
           <CardTitle>About the game</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Test your <b>intuition</b> and get to see some fonts you otherwise might have never seen.</p>
-          <p>You may know a dozen fonts by heart, but with over <b>1100 fonts available</b>, you will have to mostly guess.</p>
-          <p>While developing this game I've gotten better at recognizing many fonts and <b>consistently</b> get better correct percentage than the odds of just guessing!</p>
+          <p>
+            Test your <b>intuition</b> and get to see some fonts you otherwise
+            might have never seen.
+          </p>
+
+          <p>
+            You may know a dozen fonts by heart, but with over <b>1100 fonts
+              available</b>, you will have to mostly guess.
+          </p>
+          <p>
+            While developing this game I've gotten better at recognizing many
+            fonts and <b>consistently</b> get better correct percentage than the
+            odds of just guessing!
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -17,11 +28,19 @@
           <CardTitle>Tips</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>My <b>biggest tip</b> is to use your intuition, I think most people can know which of the following fonts is <b>Pirata</b> and which one is <b>Gamja Flower</b>.</p>
-          <p class="w-fit block mx-auto text-2xl my-3">
-            <span id="pirataFont">Font One</span> | <span id="flowerFont">Font Two</span>
+          <p>
+            My <b>biggest tip</b> is to use your intuition, I think most people
+            can know which of the following fonts is <b>Pirata</b> and which one
+            is <b>Gamja Flower</b>.
           </p>
-          <p>Font names <b>sometimes</b> already have auxiliary keywords that can help you with your answers:</p>
+          <p class="w-fit block mx-auto text-2xl my-3">
+            <span id="pirataFont">Font One</span> | <span id="flowerFont">Font
+              Two</span>
+          </p>
+          <p>
+            Font names <b>sometimes</b> already have auxiliary keywords that
+            can help you with your answers:
+          </p>
           <Table class="w-fit">
             <TableCaption>Useful keywords in font names</TableCaption>
             <TableHeader>
@@ -40,7 +59,8 @@
                   Serif
                 </TableCell>
                 <TableCell>
-                  a font with the the small line or stroke attached at the end of letters
+                  a font with the the small line or stroke attached at the end
+                  of letters
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -48,7 +68,8 @@
                   Sans Serif OR just Sans
                 </TableCell>
                 <TableCell>
-                  a font without the small line or stroke attached at the end of letters
+                  a font without the small line or stroke attached at the end of
+                  letters
                 </TableCell>
               </TableRow>
 
@@ -57,7 +78,8 @@
                   Mono
                 </TableCell>
                 <TableCell>
-                  a font without the small line or stroke attached at the end of letters
+                  a font without the small line or stroke attached at the end of
+                  letters
                 </TableCell>
               </TableRow>
 
@@ -84,10 +106,14 @@
                   One
                 </TableCell>
                 <TableCell>
-                  Read my  <a
+                  Read my
+                  <a
                     class="text-blue-500"
                     href="https://alvesjorge.com/blog/posts/one-suffix-in-fonts.html"
-                  >blog post</a> about it
+                  >
+                    blog post
+                  </a>
+                  about it
                 </TableCell>
               </TableRow>
 
@@ -105,13 +131,18 @@
                   SC
                 </TableCell>
                 <TableCell>
-                  Small caps, meaning this font comes only with upper case letters (you most likely won't encounter these as they have been filtered out)
+                  Small caps, meaning this font comes only with upper case
+                  letters (you most likely won't encounter these as they have
+                  been filtered out)
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
           <br>
-          <p>You can choose to hide most of these by turning them off in the options on the top right.</p>
+          <p>
+            You can choose to hide most of these by turning them off in the
+            options on the top right.
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -120,7 +151,8 @@
         </CardHeader>
         <CardContent>
           <p>
-            If you have any questions, inquiries or bug reports you can reach out to me via email
+            If you have any questions, inquiries or bug reports you can reach
+            out to me via email
             <a
               class="text-blue-500"
               href="mailto:jorgermalves@protonmail.com"
@@ -130,7 +162,9 @@
             <a
               class="text-blue-500"
               href="https://github.com/alvesjorge/thefontgame"
-            >github repo </a>.
+            >
+              github repo
+            </a>.
           </p>
         </CardContent>
       </Card>
@@ -140,29 +174,31 @@
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Pirata+One&display=swap");
 
-#main{
-  display:grid;
-  gap:1rem;
-  place-content:center;
-  height:90%;
-  width:80%;
-  margin:0 auto;
+#main {
+  display: grid;
+  gap: 1rem;
+  place-content: center;
+  height: 90%;
+  width: 80%;
+  margin: 0 auto;
   font-size: 1.2rem;
-  padding:2rem;
+  padding: 2rem;
 }
-#pirataFont{
-    font-family: "Pirata One";
-    font-size: 2rem;
+
+#pirataFont {
+  font-family: "Pirata One";
+  font-size: 2rem;
 }
-#flowerFont{
-    font-family: "Gamja Flower";
-    font-size: 2.5rem;
+
+#flowerFont {
+  font-family: "Gamja Flower";
+  font-size: 2.5rem;
 }
 
 @media only screen and (max-width: 800px) {
   #main {
     padding: 1rem;
-    width:95%
+    width: 95%
   }
 }
 </style>
