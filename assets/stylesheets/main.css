@@ -32,7 +32,7 @@ body,
     --text-low: 0 3% 6%;
 
     --background: 48 100% 97%;
-    --foreground: 0, 3%, 6%;
+    --foreground: 0 3% 6%;
 
     --card: var(--background);
     --card-foreground: var(--foreground);
@@ -63,7 +63,7 @@ body,
 
 
   .dark {
-    --background: 220, 6%, 21%;
+    --background: 220 6% 21%;
     --foreground: 60 10% 79%;
 
     --card: 220 6% 18%;
@@ -123,4 +123,15 @@ body,
     opacity: 0;
     transform: translate(-20px, -15px)
   }
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.1s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(4px);
 }

@@ -130,19 +130,25 @@ onBeforeMount(() => {
     </div>
   </div>
 </template>
+
 <style scoped>
 a {
  color: hsl(var(--primary));
 }
+
 #fontsTable{
-  height:80vh;
-  width:80vw;
+  height: 80vh;
+  width: 80vw;
+  background-color: hsl(var(--background))
 }
+
 #tableWrapper > div{
-  height:100%
+  height: 100%
 }
+
 .table-rows{
   max-width: 100%;
   overflow: hidden;
 }
+
 </style>

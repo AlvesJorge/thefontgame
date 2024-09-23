@@ -31,6 +31,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/stylesheets/main.css"],
   app: {
+    pageTransition: { name: "page", mode: "out-in" },
     head: {
       title: "The Font Game",
       meta: [
