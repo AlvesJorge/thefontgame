@@ -12,6 +12,11 @@
         crossorigin="true"
       >
 
+      <meta
+        name="description"
+        content="Can you guess the name of that font? Look at the font demo, and pick from an array of options. Guess, learn and discover new Fonts!"
+      >
+
       <title> The Font Game </title>
     </Head>
     <MainNav />
