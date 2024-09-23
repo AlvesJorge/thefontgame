@@ -1,3 +1,18 @@
+<script setup>
+onMounted(() => {
+  // goat counter is a open source alternative to google analytics
+  const script = document.createElement("script");
+  script.setAttribute("data-goatcounter", "https://thefontgame.goatcounter.com/count");
+  script.async = true;
+  script.src = "//gc.zgo.at/count.js";
+  document.body.appendChild(script);
+  window.goatcounter = { no_onload: true };
+
+  window.addEventListener("hashchange", () => {
+    window.goatcounter.count({ path: location.pathname + location.search + location.hash });
+  });
+});
+</script>
 <template>
   <main class="pattern-background">
     <Head>
@@ -16,13 +31,6 @@
         name="description"
         content="Can you guess the name of that font? Look at the font demo, and pick from an array of options. Guess, learn and discover new Fonts!"
       >
-
-      <!-- Lightweight and open source replacement for google analytics -->
-      <script
-        data-goatcounter="https://thefontgame.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js"
-      />
 
       <title> The Font Game </title>
     </Head>
