@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/color-mode",
     "@nuxt/eslint",
+    "@nuxt/scripts",
   ],
   imports: {
     dirs: ["helpers"],

@@ -1,17 +1,11 @@
 <script setup>
-onMounted(() => {
-  // goat counter is a open source alternative to google analytics
-  const script = document.createElement("script");
-  script.setAttribute("data-goatcounter", "https://thefontgame.goatcounter.com/count");
-  script.async = true;
-  script.src = "//gc.zgo.at/count.js";
-  document.body.appendChild(script);
-  window.goatcounter = { no_onload: true };
 
-  window.addEventListener("hashchange", () => {
-    window.goatcounter.count({ path: location.pathname + location.search + location.hash });
+useScript(
+  { src: "https://gc.zgo.at/count.js",
+    async: true,
+    "data-goatcounter": "https://thefontgame.goatcounter.com/count"
   });
-});
+
 </script>
 <template>
   <main class="pattern-background">
