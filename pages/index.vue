@@ -17,6 +17,13 @@
         content="Can you guess the name of that font? Look at the font demo, and pick from an array of options. Guess, learn and discover new Fonts!"
       >
 
+      <!-- Lightweight and open source replacement for google analytics -->
+      <script
+        data-goatcounter="https://thefontgame.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js"
+      />
+
       <title> The Font Game </title>
     </Head>
     <MainNav />
