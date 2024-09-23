@@ -1,33 +1,7 @@
 <script setup>
-
-useScript(
-  { src: "https://gc.zgo.at/count.js",
-    async: true,
-    "data-goatcounter": "https://thefontgame.goatcounter.com/count"
-  });
-
 </script>
 <template>
   <main class="pattern-background">
-    <Head>
-      <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-      >
-
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin="true"
-      >
-
-      <meta
-        name="description"
-        content="Can you guess the name of that font? Look at the font demo, and pick from an array of options. Guess, learn and discover new Fonts!"
-      >
-
-      <title> The Font Game </title>
-    </Head>
     <MainNav />
     <Game />
   </main>
