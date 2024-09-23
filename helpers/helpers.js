@@ -1,5 +1,3 @@
-import { getActivePinia } from "pinia";
-
 /**
  * @param {String} fontURL
  * @returns {Promise}
