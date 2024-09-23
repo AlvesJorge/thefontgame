@@ -1,5 +1,6 @@
 # Font Game
 In this game a user gets to see the name of a font in a showcase, and guess from a range of possible options what they think this font is named.
+
 ![alt text](assets/github_demo.png)
 
 ## Features
@@ -33,7 +34,7 @@ For some reason intellisense relying on nuxt imports is only enabled once the `.
 
 If they change the app would break:
 
-- The existance of this file, and it's structure https://raw.githubusercontent.com/google/fonts/main/tags/all/families.csv
+- The existence of this file, and it's structure https://raw.githubusercontent.com/google/fonts/main/tags/all/families.csv
 - Google fonts base url: https://fonts.googleapis.com/css2?family=
 
 ## Setup
