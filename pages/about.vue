@@ -21,7 +21,7 @@
           <p class="w-fit block mx-auto text-2xl my-3">
             <span id="pirataFont">Font One</span> | <span id="flowerFont">Font Two</span>
           </p>
-          <p>Font names <b>sometimes</b> can already have auxiliary keywords that can help you in your answers:</p>
+          <p>Font names <b>sometimes</b> already have auxiliary keywords that can help you with your answers:</p>
           <Table class="w-fit">
             <TableCaption>Useful keywords in font names</TableCaption>
             <TableHeader>
@@ -75,7 +75,7 @@
                   Gothic
                 </TableCell>
                 <TableCell>
-                  a style of serif font usually thick ornate strokes
+                  a style of sans font usually thick ornate strokes
                 </TableCell>
               </TableRow>
 
