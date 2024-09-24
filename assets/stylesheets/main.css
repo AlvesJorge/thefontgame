@@ -8,7 +8,17 @@ body,
   height: 100%;
   width: 100%;
   overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
 }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
 
 :root {
   --green: 142.1 76.2% 36.3%;
