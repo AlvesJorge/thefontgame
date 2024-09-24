@@ -139,7 +139,10 @@ a {
 #fontsTable{
   height: 80vh;
   width: 80vw;
-  background-color: hsl(var(--background))
+}
+
+#tableWrapper{
+  background-color: hsl(var(--card))
 }
 
 #tableWrapper > div{

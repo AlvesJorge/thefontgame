@@ -17,7 +17,7 @@ function clearData() {
       id="statsTable"
       class="w-full"
     >
-      <TableBody>
+      <TableBody id="tableBody">
         <TableRow>
           <TableCell>
             Total Answered: <b>{{ statsStore.totalAnswered }}</b>
@@ -75,7 +75,7 @@ function clearData() {
 }
 
 #statsTable {
-  background-color: hsl(var(--background));
+  background-color: hsl(var(--card));
   margin-top: 2rem;
   font-size: 5rem !important;
   border-radius: 1rem;
