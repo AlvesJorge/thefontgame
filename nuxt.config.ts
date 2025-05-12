@@ -38,7 +38,8 @@ export default defineNuxtConfig({
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { property: "og:image", content: "/assets/github_demo.png" },
-        { name: "keywords", content: "the font game, font game, web game, guess that font, guess the font name, fonts, typography, web game" }
+        { name: "keywords", content: ["the font game", "font game", "web game", "guess that font", "guess the font name", "fonts", "typography"] },
+        { name: "description", content: "Test your font identifying skills and typography naming intuitions. Or simply guess the font name. Play with a timer, fixed amount of questions or zen mode. Check out the options for managing difficulty" }
       ],
       link: [
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
