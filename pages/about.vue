@@ -27,8 +27,8 @@
       </CardHeader>
       <CardContent>
         <p>
-          My <b>biggest tip</b> is to use your intuition, I think most people
-          can know which of the following fonts is <b>Pirata</b> and which one
+          My <b>biggest tip</b> is to use your intuition. I believe most people
+          can intuit which of the following fonts is <b>Pirata</b> and which one
           is <b>Gamja Flower</b>.
         </p>
         <p class="w-fit block mx-auto text-2xl my-3">
@@ -57,7 +57,7 @@
                 Serif
               </TableCell>
               <TableCell>
-                a font with the the small line or stroke attached at the end
+                a font with the small line or stroke attached at the end
                 of letters
               </TableCell>
             </TableRow>
@@ -76,8 +76,7 @@
                 Mono
               </TableCell>
               <TableCell>
-                a font without the small line or stroke attached at the end of
-                letters
+                a font where all the characters have the same width
               </TableCell>
             </TableRow>
 
@@ -160,12 +159,13 @@
           <a
             class="text-blue-500"
             href="https://github.com/alvesjorge/thefontgame"
-          >github repo</a>.
+          >github repository</a>.
         </p>
       </CardContent>
     </Card>
   </div>
 </template>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Pirata+One&display=swap");
 
@@ -192,7 +192,7 @@
 @media only screen and (max-width: 800px) {
   #main {
     padding: 1rem;
-    width: 95%
+    width: 95%;
   }
 }
 </style>
